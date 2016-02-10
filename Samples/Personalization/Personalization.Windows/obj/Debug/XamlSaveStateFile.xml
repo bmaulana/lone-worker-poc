@@ -1,0 +1,8 @@
+<XamlCompilerSaveState>
+  <ReferenceAssemblyList>
+    <LocalAssembly PathName="d:\bandsdk\samples\personalization\personalization.windows\obj\debug\intermediatexaml\personalization.windows.exe" HashGuid="ad3cb69a-1c0e-e283-2e4d-b3cbf2689f8c" />
+    <ReferenceAssembly PathName="d:\bandsdk\samples\packages\microsoft.band.1.3.10929\lib\netcore451\microsoft.band.dll" HashGuid="6705b5bb-48c0-5c5d-c987-f3ebdb4e03eb" />
+    <ReferenceAssembly PathName="d:\bandsdk\samples\packages\microsoft.band.1.3.10929\lib\netcore451\microsoft.band.store.dll" HashGuid="ac7b829b-d109-09c5-f061-1897783e0e25" />
+    <ReferenceAssembly PathName="d:\bandsdk\samples\packages\microsoft.band.1.3.10929\lib\netcore451\microsoft.band.windows.dll" HashGuid="f0d11f80-4057-46ca-ed83-ecd3fc926e81" />
+  </ReferenceAssemblyList>
+</XamlCompilerSaveState>

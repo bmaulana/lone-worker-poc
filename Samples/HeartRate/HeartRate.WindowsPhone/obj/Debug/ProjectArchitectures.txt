@@ -1,0 +1,1 @@
+D:\BandSDK\Samples\HeartRate\HeartRate.WindowsPhone\HeartRate.WindowsPhone.csproj;neutral

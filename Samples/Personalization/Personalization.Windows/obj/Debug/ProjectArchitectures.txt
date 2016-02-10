@@ -1,0 +1,1 @@
+D:\BandSDK\Samples\Personalization\Personalization.Windows\Personalization.Windows.csproj;neutral
