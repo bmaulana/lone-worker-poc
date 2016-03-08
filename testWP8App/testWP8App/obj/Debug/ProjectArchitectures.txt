@@ -1,0 +1,1 @@
+D:\VisualStudioProjects\testWP8App\testWP8App\testWP8App.csproj;neutral
