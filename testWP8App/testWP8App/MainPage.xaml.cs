@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -227,7 +228,19 @@ namespace testWP8App
                     // await bandClient.TileManager.RemoveTileAsync(myTileId);
 
                     // Create the Tile on the Band.
-                    await bandClient.TileManager.AddTileAsync(myTile);
+                    // await bandClient.TileManager.AddTileAsync(myTile);
+
+                    var installedApps = await bandClient.TileManager.GetTilesAsync();
+                    bool[] exists = {false};
+                    foreach (var tile in installedApps.Where(tile => !exists[0] && tile.TileId == myTileId))
+                    {
+                        exists[0] = true;
+                    }
+
+                    if (!exists[0])
+                    {
+                        await bandClient.TileManager.AddTileAsync(myTile);
+                    }
 
                     // Send a notification.
                     await bandClient.NotificationManager.SendMessageAsync(myTileId, titleInput.Text, bodyInput.Text, DateTimeOffset.Now, MessageFlags.ShowDialog);
