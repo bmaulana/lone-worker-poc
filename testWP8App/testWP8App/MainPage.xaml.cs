@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -31,6 +32,12 @@ namespace testWP8App
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private bool started = false;
+        private long initSteps;
+        private long initDistance;
+        private Stopwatch initTime;
+
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -95,14 +102,11 @@ namespace testWP8App
                     }
                     else
                     {
-                        var samplesReceived = 0; // the number of SkinTemperature samples received
                         var readings = new List<double>();
 
                         // Subscribe to SkinTemperature data.
                         bandClient.SensorManager.SkinTemperature.ReadingChanged += (s, args) =>
                         {
-                            samplesReceived++;
-                            // viewModel.StatusMessage = args.SensorReading.SkinTemperature.ToString();
                             readings.Add(args.SensorReading.Temperature);
                         };
                         await bandClient.SensorManager.SkinTemperature.StartReadingsAsync();
@@ -116,10 +120,6 @@ namespace testWP8App
 
                         var average = (decimal)readings.Sum() / readings.Count;
                         var message = average + " C";
-
-                        /*var message = readings.Aggregate("", (current, i) => current + $"{i} \n");
-                        message += $"Done. {samplesReceived} SkinTemperature samples were received.";*/
-
                         tempOutput.Text = message;
                     }
                 }
@@ -165,14 +165,11 @@ namespace testWP8App
                     }
                     else
                     {
-                        var samplesReceived = 0; // the number of HeartRate samples received
                         var readings = new List<int>();
 
                         // Subscribe to HeartRate data.
                         bandClient.SensorManager.HeartRate.ReadingChanged += (s, args) =>
                         {
-                            samplesReceived++;
-                            // viewModel.StatusMessage = args.SensorReading.HeartRate.ToString();
                             readings.Add(args.SensorReading.HeartRate);
                         };
                         await bandClient.SensorManager.HeartRate.StartReadingsAsync();
@@ -186,9 +183,6 @@ namespace testWP8App
 
                         var average = (decimal)readings.Sum() / readings.Count;
                         var message = average + " BPM";
-
-                        /*var message = readings.Aggregate("", (current, i) => current + $"{i} \n");
-                        message += $"Done. {samplesReceived} HeartRate samples were received.";*/
 
                         heartRateOutput.Text = message;
                     }
@@ -257,86 +251,159 @@ namespace testWP8App
             }
         }
 
-        private async void CreatePanicBand(object sender, RoutedEventArgs e)
+        private async void ToggleClick(object sender, RoutedEventArgs e)
         {
-            //TODO fix this
-            bandOutput.Text = "Running ...";
+            started = !started;
+            if (started)
+            {
+                initSteps = await GetPedometer();
+                initDistance = await GetDistance();
+                if(initTime == null) { initTime = new Stopwatch(); }
+                initTime.Start();
 
+                toggleButton.Content = "End work";
+                stepsOutput.Text = "0";
+                distanceOutput.Text = "0 m";
+                timeOutput.Text = "0:00:00";
+            }
+            else
+            {
+                initTime.Stop();
+                initTime.Reset();
+                toggleButton.Content = "Start work";
+                stepsOutput.Text = "Not started";
+                distanceOutput.Text = "Not started";
+                timeOutput.Text = "Not started";
+            }
+        }
+
+        private async void RefreshClick(object sender, RoutedEventArgs e)
+        {
+            if (!started) return;
+
+            var steps = await GetPedometer() - initSteps;
+            stepsOutput.Text = steps.ToString();
+
+            var distance = await GetDistance() - initDistance;
+            distanceOutput.Text = Convert.ToDecimal(distance)/100 + " m";
+
+            timeOutput.Text = initTime.Elapsed.Hours + "h " + initTime.Elapsed.Minutes + "min " + initTime.Elapsed.Seconds + "sec";
+        }
+
+        private async Task<long> GetPedometer()
+        {
             try
             {
                 // Get the list of Microsoft Bands paired to the phone.
-                IBandInfo[] pairedBands = await BandClientManager.Instance.GetBandsAsync();
+                var pairedBands = await BandClientManager.Instance.GetBandsAsync();
                 if (pairedBands.Length < 1)
                 {
-                    bandOutput.Text = "This sample app requires a Microsoft Band paired to your device. Also make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
-                    return;
+                    stepsOutput.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
+                    return -1;
                 }
 
                 // Connect to Microsoft Band.
                 using (IBandClient bandClient = await BandClientManager.Instance.ConnectAsync(pairedBands[0]))
                 {
-                    // Create a Tile with a TextButton on it.
-                    Guid myTileId = new Guid("12408A60-13EB-46C2-9D24-F14BF6A033C6");
-                    BandTile myTile = new BandTile(myTileId)
+                    bool consentGranted;
+
+                    // Check whether the user has granted access to the HeartRate sensor.
+                    if (bandClient.SensorManager.Pedometer.GetCurrentUserConsent() == UserConsent.Granted)
                     {
-                        Name = "My Tile",
-                        TileIcon = await LoadIcon("ms-appx:///Assets/SampleTileIconLarge.png"),
-                        SmallIcon = await LoadIcon("ms-appx:///Assets/SampleTileIconSmall.png")
-                    };
-                    TextButton button = new TextButton() { ElementId = 1, Rect = new PageRect(10, 10, 200, 90) };
-                    FilledPanel panel = new FilledPanel(button) { Rect = new PageRect(0, 0, 220, 150) };
-                    myTile.PageLayouts.Add(new PageLayout(panel));
-
-                    // Remove the Tile from the Band, if present. An application won't need to do this everytime it runs. 
-                    // But in case you modify this sample code and run it again, let's make sure to start fresh.
-                    await bandClient.TileManager.RemoveTileAsync(myTileId);
-
-                    // Create the Tile on the Band.
-                    await bandClient.TileManager.AddTileAsync(myTile);
-                    await bandClient.TileManager.SetPagesAsync(myTileId, new PageData(new Guid("5F5FD06E-BD37-4B71-B36C-3ED9D721F200"), 0, new TextButtonData(1, "Click here")));
-
-                    // Subscribe to Tile events.
-                    int buttonPressedCount = 0;
-                    TaskCompletionSource<bool> closePressed = new TaskCompletionSource<bool>();
-
-                    bandClient.TileManager.TileButtonPressed += (s, args) =>
+                        consentGranted = true;
+                    }
+                    else
                     {
-                        var a = Dispatcher.RunAsync(
-                            CoreDispatcherPriority.Normal,
-                            () =>
-                            {
-                                buttonPressedCount++;
-                                bandOutput.Text = string.Format("TileButtonPressed = {0}", buttonPressedCount);
-                            }
-                        );
-                    };
-                    bandClient.TileManager.TileClosed += (s, args) =>
+                        consentGranted = await bandClient.SensorManager.Pedometer.RequestUserConsentAsync();
+                    }
+
+                    if (!consentGranted)
                     {
-                        closePressed.TrySetResult(true);
-                    };
+                        stepsOutput.Text = "Access to the pedometer is denied.";
+                    }
+                    else
+                    {
+                        var readings = new List<long>();
 
-                    await bandClient.TileManager.StartReadingsAsync();
+                        bandClient.SensorManager.Pedometer.ReadingChanged += (s, args) =>
+                        {
+                            readings.Add(args.SensorReading.TotalSteps);
+                        };
+                        await bandClient.SensorManager.Pedometer.StartReadingsAsync();
+                        
+                        while (readings.Count == 0)
+                        {
+                            await Task.Delay(TimeSpan.FromSeconds(1));
+                        }
+                        await bandClient.SensorManager.Distance.StopReadingsAsync();
 
-                    // Receive events until the Tile is closed.
-                    bandOutput.Text = "Check the Tile on your Band (it's the last Tile). Waiting for events ...";
-
-                    await closePressed.Task;
-
-                    // Stop listening for Tile events.
-                    await bandClient.TileManager.StopReadingsAsync();
-
-                    bandOutput.Text = "Done.";
+                        return readings[readings.Count - 1];
+                    }
                 }
             }
             catch (Exception ex)
             {
-                bandOutput.Text = ex.ToString();
+                stepsOutput.Text = ex.ToString();
             }
+            return -1;
         }
 
-        private void ToggleClick(object sender, RoutedEventArgs e)
+        private async Task<long> GetDistance()
         {
-            //TODO
+            try
+            {
+                // Get the list of Microsoft Bands paired to the phone.
+                var pairedBands = await BandClientManager.Instance.GetBandsAsync();
+                if (pairedBands.Length < 1)
+                {
+                    distanceOutput.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
+                    return -1;
+                }
+
+                // Connect to Microsoft Band.
+                using (IBandClient bandClient = await BandClientManager.Instance.ConnectAsync(pairedBands[0]))
+                {
+                    bool consentGranted;
+
+                    // Check whether the user has granted access to the HeartRate sensor.
+                    if (bandClient.SensorManager.Distance.GetCurrentUserConsent() == UserConsent.Granted)
+                    {
+                        consentGranted = true;
+                    }
+                    else
+                    {
+                        consentGranted = await bandClient.SensorManager.Distance.RequestUserConsentAsync();
+                    }
+
+                    if (!consentGranted)
+                    {
+                        distanceOutput.Text = "Access to the distance sensor is denied.";
+                    }
+                    else
+                    {
+                        var readings = new List<long>();
+
+                        bandClient.SensorManager.Distance.ReadingChanged += (s, args) =>
+                        {
+                            readings.Add(args.SensorReading.TotalDistance);
+                        };
+                        await bandClient.SensorManager.Distance.StartReadingsAsync();
+
+                        while (readings.Count == 0)
+                        {
+                            await Task.Delay(TimeSpan.FromSeconds(1));
+                        }
+                        await bandClient.SensorManager.Distance.StopReadingsAsync();
+
+                        return readings[readings.Count - 1];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                distanceOutput.Text = ex.ToString();
+            }
+            return -1;
         }
     }
 }

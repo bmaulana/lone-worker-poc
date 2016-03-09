@@ -27,26 +27,26 @@
             <TextBox x:Name="bodyInput" Width="300" HorizontalAlignment="Left" Text="" PlaceholderText="Body"/>
             <Button x:Name="notifButton" Content="Send notification to Band" Margin="0,0,0,0" Click="NotifClick"/>
 
-            <Button x:Name="createPanicButton" Content="Create panic button in Band" Margin="0,0,0,0" Click="CreatePanicBand"/>
-
             <TextBlock x:Name="bandOutput" Margin="0,0,0,0" FontSize="16"/>
 
-            <Button x:Name="toggleButton" Content="Toggle activity" Margin="0,20,0,0" Click="ToggleClick"/>
+            <Button x:Name="toggleButton" Content="Start work" Margin="0,20,0,0" Click="ToggleClick"/>
 
             <StackPanel x:Name="stepsPanel" Orientation="Horizontal" Margin="0,10,0,0">
-                <TextBlock Text="Steps:" FontSize="16" HorizontalAlignment="Left"/>
-                <TextBlock x:Name="stepsOutput" Margin="20,0,0,0" FontSize="16"/>
+                <TextBlock Text="Steps taken:" FontSize="16" HorizontalAlignment="Left"/>
+                <TextBlock x:Name="stepsOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
             </StackPanel>
 
             <StackPanel x:Name="distancePanel" Orientation="Horizontal" Margin="0,10,0,0">
                 <TextBlock Text="Distance walked:" FontSize="16" HorizontalAlignment="Left"/>
-                <TextBlock x:Name="distanceOutput" Margin="20,0,0,0" FontSize="16"/>
+                <TextBlock x:Name="distanceOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
             </StackPanel>
 
             <StackPanel x:Name="timePanel" Orientation="Horizontal" Margin="0,10,0,0">
-                <TextBlock Text="Time:" FontSize="16" HorizontalAlignment="Left"/>
-                <TextBlock x:Name="timeOutput" Margin="20,0,0,0" FontSize="16"/>
+                <TextBlock Text="Time elasped:" FontSize="16" HorizontalAlignment="Left"/>
+                <TextBlock x:Name="timeOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
             </StackPanel>
+
+            <Button x:Name="refreshButton" Content="Refresh" Margin="0,0,0,0" Click="RefreshClick"/>
 
         </StackPanel>
     </Grid>
