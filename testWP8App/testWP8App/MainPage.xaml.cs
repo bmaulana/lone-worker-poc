@@ -32,6 +32,8 @@ namespace testWP8App
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private const int BandDelay = 100;
+
         private bool started = false;
         private long initSteps;
         private long initDistance;
@@ -114,7 +116,7 @@ namespace testWP8App
                         // Receive SkinTemperature data for a while, then stop the subscription.
                         while (readings.Count == 0)
                         {
-                            await Task.Delay(TimeSpan.FromSeconds(1));
+                            await Task.Delay(TimeSpan.FromMilliseconds(BandDelay));
                         }
                         await bandClient.SensorManager.SkinTemperature.StopReadingsAsync();
 
@@ -177,7 +179,7 @@ namespace testWP8App
                         // Receive HeartRate data for a while, then stop the subscription.
                         while (readings.Count == 0)
                         {
-                            await Task.Delay(TimeSpan.FromSeconds(1));
+                            await Task.Delay(TimeSpan.FromMilliseconds(BandDelay));
                         }
                         await bandClient.SensorManager.HeartRate.StopReadingsAsync();
 
@@ -264,7 +266,7 @@ namespace testWP8App
                 toggleButton.Content = "End work";
                 stepsOutput.Text = "0";
                 distanceOutput.Text = "0 m";
-                timeOutput.Text = "0:00:00";
+                timeOutput.Text = "0h 0min 0sec";
             }
             else
             {
@@ -333,7 +335,7 @@ namespace testWP8App
                         
                         while (readings.Count == 0)
                         {
-                            await Task.Delay(TimeSpan.FromSeconds(1));
+                            await Task.Delay(TimeSpan.FromMilliseconds(BandDelay));
                         }
                         await bandClient.SensorManager.Distance.StopReadingsAsync();
 
@@ -391,7 +393,7 @@ namespace testWP8App
 
                         while (readings.Count == 0)
                         {
-                            await Task.Delay(TimeSpan.FromSeconds(1));
+                            await Task.Delay(TimeSpan.FromMilliseconds(BandDelay));
                         }
                         await bandClient.SensorManager.Distance.StopReadingsAsync();
 
