@@ -36,11 +36,11 @@
                     <TextBlock x:Name="heartRateOutput" Text="N/A" Margin="10,12,0,0" FontSize="16"/>
                 </StackPanel>
                 
-                <StackPanel x:Name="LowandHigh" Orientation="Horizontal" Margin="0,0,0,10">
+                <StackPanel x:Name="LowandHigh" Orientation="Horizontal" Margin="0,0,0,0">
                     <TextBox FontWeight="Bold"  Text="Low" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16"  />
-                    <TextBlock x:Name="heartRateLow" Text="N/A" Margin="10,5,40,0" FontSize="16"/>
+                    <TextBlock x:Name="heartRateLow" Text="N/A" Margin="10,10,40,0" FontSize="16"/>
                     <TextBox  FontWeight="Bold" Text="High"  Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16"/>
-                    <TextBlock x:Name="heartRateHigh" Text="N/A" Margin="10,5,40,0" FontSize="16"/>
+                    <TextBlock x:Name="heartRateHigh" Text="N/A" Margin="10,10,40,0" FontSize="16"/>
                 </StackPanel>
 
             </StackPanel>
