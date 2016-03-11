@@ -62,7 +62,7 @@ namespace LoneWorkerPoC
 
         private async void NotifClick(object sender, RoutedEventArgs e)
         {
-            await _bandManager.SendNotification(BandOutput, TitleInput.Text, BodyInput.Text);
+            await _bandManager.SendNotification(NotifOutput, TitleInput.Text, BodyInput.Text);
         }
 
         private async void ToggleClick(object sender, RoutedEventArgs e)
@@ -131,6 +131,18 @@ namespace LoneWorkerPoC
         private void UpdateTime()
         {
             TimeOutput.Text = _initTime.Elapsed.Hours + "h " + _initTime.Elapsed.Minutes + "min " + _initTime.Elapsed.Seconds + "sec";
+        }
+
+        private async void ConnectClick(object sender, RoutedEventArgs e)
+        {
+            if (await _bandManager.ConnectTask())
+            {
+                BandOutput.Text = "Connected.";
+            }
+            else
+            {
+                BandOutput.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
+            }
         }
     }
 }

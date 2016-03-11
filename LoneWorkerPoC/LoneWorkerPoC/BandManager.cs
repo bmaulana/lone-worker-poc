@@ -15,47 +15,35 @@ namespace LoneWorkerPoC
     public class BandManager
     {
         private const int BandDelay = 100; //delay in communicating with the band for sensor retreival in milliseconds
-        private IBandClient bandClient;
+        private IBandClient _bandClient;
+        private bool _started;
 
-        public async Task<bool> ConnectTask(TextBlock output)
+        public async Task<bool> ConnectTask()
         {
             var pairedBands = await BandClientManager.Instance.GetBandsAsync();
-            if (pairedBands.Length < 1)
-            {
-                output.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
-                return false;
-            }
-            bandClient = await BandClientManager.Instance.ConnectAsync(pairedBands[0]);
+            if (pairedBands.Length < 1) return false;
+            _bandClient = await BandClientManager.Instance.ConnectAsync(pairedBands[0]);
+            _started = true;
             return true;
         }
 
         public async Task<decimal> DisplaySkinTemperature(TextBlock tempOutput)
         {
             //tempOutput.Text = "Running ...";
+            if (!_started) return -1;
 
             try
             {
-                // Get the list of Microsoft Bands paired to the phone.
-                var pairedBands = await BandClientManager.Instance.GetBandsAsync();
-                if (pairedBands.Length < 1)
-                {
-                    tempOutput.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
-                    return -1;
-                }
-
-                // Connect to Microsoft Band.
-                using (IBandClient bandClient = await BandClientManager.Instance.ConnectAsync(pairedBands[0]))
-                {
                     bool tempConsentGranted;
 
-                    // Check whether the user has granted access to the HeartRate sensor.
-                    if (bandClient.SensorManager.SkinTemperature.GetCurrentUserConsent() == UserConsent.Granted)
+                    // Check whether the user has granted access to the SkinTemperature sensor.
+                    if (_bandClient.SensorManager.SkinTemperature.GetCurrentUserConsent() == UserConsent.Granted)
                     {
                         tempConsentGranted = true;
                     }
                     else
                     {
-                        tempConsentGranted = await bandClient.SensorManager.SkinTemperature.RequestUserConsentAsync();
+                        tempConsentGranted = await _bandClient.SensorManager.SkinTemperature.RequestUserConsentAsync();
                     }
 
                     if (!tempConsentGranted)
@@ -67,25 +55,24 @@ namespace LoneWorkerPoC
                         var readings = new List<double>();
 
                         // Subscribe to SkinTemperature data.
-                        bandClient.SensorManager.SkinTemperature.ReadingChanged += (s, args) =>
+                        _bandClient.SensorManager.SkinTemperature.ReadingChanged += (s, args) =>
                         {
                             readings.Add(args.SensorReading.Temperature);
                         };
-                        await bandClient.SensorManager.SkinTemperature.StartReadingsAsync();
+                        await _bandClient.SensorManager.SkinTemperature.StartReadingsAsync();
 
                         // Receive SkinTemperature data for a while, then stop the subscription.
                         while (readings.Count == 0)
                         {
                             await Task.Delay(TimeSpan.FromMilliseconds(BandDelay));
                         }
-                        await bandClient.SensorManager.SkinTemperature.StopReadingsAsync();
+                        await _bandClient.SensorManager.SkinTemperature.StopReadingsAsync();
 
                         var average = (decimal)readings.Sum() / readings.Count;
                         var message = average + " C";
                         tempOutput.Text = message;
                         return average;
                     }
-                }
             }
             catch (Exception ex)
             {
@@ -97,30 +84,20 @@ namespace LoneWorkerPoC
         public async Task<decimal> DisplayHeartRate(TextBlock heartRateOutput)
         {
             //heartRateOutput.Text = "Running ...";
+            if (!_started) return -1;
 
             try
             {
-                // Get the list of Microsoft Bands paired to the phone.
-                var pairedBands = await BandClientManager.Instance.GetBandsAsync();
-                if (pairedBands.Length < 1)
-                {
-                    heartRateOutput.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
-                    return -1;
-                }
-
-                // Connect to Microsoft Band.
-                using (IBandClient bandClient = await BandClientManager.Instance.ConnectAsync(pairedBands[0]))
-                {
                     bool heartRateConsentGranted;
 
                     // Check whether the user has granted access to the HeartRate sensor.
-                    if (bandClient.SensorManager.HeartRate.GetCurrentUserConsent() == UserConsent.Granted)
+                    if (_bandClient.SensorManager.HeartRate.GetCurrentUserConsent() == UserConsent.Granted)
                     {
                         heartRateConsentGranted = true;
                     }
                     else
                     {
-                        heartRateConsentGranted = await bandClient.SensorManager.HeartRate.RequestUserConsentAsync();
+                        heartRateConsentGranted = await _bandClient.SensorManager.HeartRate.RequestUserConsentAsync();
                     }
 
                     if (!heartRateConsentGranted)
@@ -132,18 +109,18 @@ namespace LoneWorkerPoC
                         var readings = new List<int>();
 
                         // Subscribe to HeartRate data.
-                        bandClient.SensorManager.HeartRate.ReadingChanged += (s, args) =>
+                        _bandClient.SensorManager.HeartRate.ReadingChanged += (s, args) =>
                         {
                             readings.Add(args.SensorReading.HeartRate);
                         };
-                        await bandClient.SensorManager.HeartRate.StartReadingsAsync();
+                        await _bandClient.SensorManager.HeartRate.StartReadingsAsync();
 
                         // Receive HeartRate data for a while, then stop the subscription.
                         while (readings.Count == 0)
                         {
                             await Task.Delay(TimeSpan.FromMilliseconds(BandDelay));
                         }
-                        await bandClient.SensorManager.HeartRate.StopReadingsAsync();
+                        await _bandClient.SensorManager.HeartRate.StopReadingsAsync();
 
                         var average = (decimal)readings.Sum() / readings.Count;
                         var message = average + " BPM";
@@ -151,7 +128,6 @@ namespace LoneWorkerPoC
                         heartRateOutput.Text = message;
                         return average;
                     }
-                }
             }
             catch (Exception ex)
             {
@@ -164,27 +140,16 @@ namespace LoneWorkerPoC
         {
             try
             {
-                // Get the list of Microsoft Bands paired to the phone.
-                var pairedBands = await BandClientManager.Instance.GetBandsAsync();
-                if (pairedBands.Length < 1)
-                {
-                    stepsOutput.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
-                    return -1;
-                }
-
-                // Connect to Microsoft Band.
-                using (IBandClient bandClient = await BandClientManager.Instance.ConnectAsync(pairedBands[0]))
-                {
                     bool consentGranted;
 
-                    // Check whether the user has granted access to the HeartRate sensor.
-                    if (bandClient.SensorManager.Pedometer.GetCurrentUserConsent() == UserConsent.Granted)
+                    // Check whether the user has granted access to the Pedometer sensor.
+                    if (_bandClient.SensorManager.Pedometer.GetCurrentUserConsent() == UserConsent.Granted)
                     {
                         consentGranted = true;
                     }
                     else
                     {
-                        consentGranted = await bandClient.SensorManager.Pedometer.RequestUserConsentAsync();
+                        consentGranted = await _bandClient.SensorManager.Pedometer.RequestUserConsentAsync();
                     }
 
                     if (!consentGranted)
@@ -195,21 +160,20 @@ namespace LoneWorkerPoC
                     {
                         var readings = new List<long>();
 
-                        bandClient.SensorManager.Pedometer.ReadingChanged += (s, args) =>
+                        _bandClient.SensorManager.Pedometer.ReadingChanged += (s, args) =>
                         {
                             readings.Add(args.SensorReading.TotalSteps);
                         };
-                        await bandClient.SensorManager.Pedometer.StartReadingsAsync();
+                        await _bandClient.SensorManager.Pedometer.StartReadingsAsync();
 
                         while (readings.Count == 0)
                         {
                             await Task.Delay(TimeSpan.FromMilliseconds(BandDelay));
                         }
-                        await bandClient.SensorManager.Distance.StopReadingsAsync();
+                        await _bandClient.SensorManager.Distance.StopReadingsAsync();
 
                         return readings[readings.Count - 1];
                     }
-                }
             }
             catch (Exception ex)
             {
@@ -222,27 +186,16 @@ namespace LoneWorkerPoC
         {
             try
             {
-                // Get the list of Microsoft Bands paired to the phone.
-                var pairedBands = await BandClientManager.Instance.GetBandsAsync();
-                if (pairedBands.Length < 1)
-                {
-                    distanceOutput.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
-                    return -1;
-                }
-
-                // Connect to Microsoft Band.
-                using (IBandClient bandClient = await BandClientManager.Instance.ConnectAsync(pairedBands[0]))
-                {
                     bool consentGranted;
 
-                    // Check whether the user has granted access to the HeartRate sensor.
-                    if (bandClient.SensorManager.Distance.GetCurrentUserConsent() == UserConsent.Granted)
+                    // Check whether the user has granted access to the Distance sensor.
+                    if (_bandClient.SensorManager.Distance.GetCurrentUserConsent() == UserConsent.Granted)
                     {
                         consentGranted = true;
                     }
                     else
                     {
-                        consentGranted = await bandClient.SensorManager.Distance.RequestUserConsentAsync();
+                        consentGranted = await _bandClient.SensorManager.Distance.RequestUserConsentAsync();
                     }
 
                     if (!consentGranted)
@@ -253,21 +206,20 @@ namespace LoneWorkerPoC
                     {
                         var readings = new List<long>();
 
-                        bandClient.SensorManager.Distance.ReadingChanged += (s, args) =>
+                        _bandClient.SensorManager.Distance.ReadingChanged += (s, args) =>
                         {
                             readings.Add(args.SensorReading.TotalDistance);
                         };
-                        await bandClient.SensorManager.Distance.StartReadingsAsync();
+                        await _bandClient.SensorManager.Distance.StartReadingsAsync();
 
                         while (readings.Count == 0)
                         {
                             await Task.Delay(TimeSpan.FromMilliseconds(BandDelay));
                         }
-                        await bandClient.SensorManager.Distance.StopReadingsAsync();
+                        await _bandClient.SensorManager.Distance.StopReadingsAsync();
 
                         return readings[readings.Count - 1];
                     }
-                }
             }
             catch (Exception ex)
             {
@@ -282,17 +234,6 @@ namespace LoneWorkerPoC
 
             try
             {
-                // Get the list of Microsoft Bands paired to the phone.
-                IBandInfo[] pairedBands = await BandClientManager.Instance.GetBandsAsync();
-                if (pairedBands.Length < 1)
-                {
-                    bandOutput.Text = "This sample app requires a Microsoft Band paired to your device. Also make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
-                    return;
-                }
-
-                // Connect to Microsoft Band.
-                using (IBandClient bandClient = await BandClientManager.Instance.ConnectAsync(pairedBands[0]))
-                {
                     // Create a Tile.
                     Guid myTileId = new Guid("D0BAB7A8-FFDC-43C3-B995-87AFB2A43387");
                     BandTile myTile = new BandTile(myTileId)
@@ -310,7 +251,7 @@ namespace LoneWorkerPoC
                     // Create the Tile on the Band.
                     // await bandClient.TileManager.AddTileAsync(myTile);
 
-                    var installedApps = await bandClient.TileManager.GetTilesAsync();
+                    var installedApps = await _bandClient.TileManager.GetTilesAsync();
                     bool[] exists = { false };
                     foreach (var tile in installedApps.Where(tile => !exists[0] && tile.TileId == myTileId))
                     {
@@ -320,14 +261,13 @@ namespace LoneWorkerPoC
 
                     if (!exists[0])
                     {
-                        await bandClient.TileManager.AddTileAsync(myTile);
+                        await _bandClient.TileManager.AddTileAsync(myTile);
                     }
 
                     // Send a notification.
-                    await bandClient.NotificationManager.SendMessageAsync(myTileId, title, message, DateTimeOffset.Now, MessageFlags.ShowDialog);
+                    await _bandClient.NotificationManager.SendMessageAsync(myTileId, title, message, DateTimeOffset.Now, MessageFlags.ShowDialog);
 
                     bandOutput.Text = "Message sent."; //TODO create task (don't await it?) to remove text after ~5 sec
-                }
             }
             catch (Exception ex)
             {
