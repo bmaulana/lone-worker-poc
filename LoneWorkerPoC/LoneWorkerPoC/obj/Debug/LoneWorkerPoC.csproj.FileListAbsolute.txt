@@ -1,0 +1,84 @@
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\LoneWorkerPoC.csprojResolveAssemblyReference.cache
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\App.g.i.cs
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\App.g.cs
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MainPage.g.i.cs
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MainPage.g.cs
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\XamlTypeInfo.g.cs
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\App.xaml
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\App.xbf
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\XamlSaveStateFile.xml
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MainPage.xaml
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MainPage.xbf
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\App.xbf
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\MainPage.xbf
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\LoneWorkerPoC.xr.xml
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\LoneWorkerPoC.exe
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\LoneWorkerPoC.pdb
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\resources.pri
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\AppxManifest.xml
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\LoneWorkerPoC.build.appxrecipe
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Google.Protobuf.dll
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Microsoft.Band.dll
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Microsoft.Band.Phone.dll
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Microsoft.Band.Store.dll
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Microsoft.Band.Phone.pri
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Microsoft.Band.Store.pri
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\LoneWorkerPoC.exe
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\LoneWorkerPoC.pdb
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\LoneWorkerPoC.csproj.GenerateResource.Cache
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\priconfig.xml
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\priconfig.xml.intermediate
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\layout.resfiles
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\layout.resfiles.intermediate
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\resources.resfiles
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\resources.resfiles.intermediate
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\pri.resfiles
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\pri.resfiles.intermediate
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\qualifiers.txt
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\qualifiers.txt.intermediate
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MultipleQualifiersPerDimensionFound.txt
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Microsoft.Band.Phone.pri.xml
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Microsoft.Band.Store.pri.xml
+c:\users\jackys\documents\visual studio 2015\Projects\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\ProjectArchitectures.txt
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\App.xbf
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\MainPage.xbf
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\LoneWorkerPoC.xr.xml
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\LoneWorkerPoC.exe
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\LoneWorkerPoC.pdb
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\resources.pri
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\AppxManifest.xml
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\LoneWorkerPoC.build.appxrecipe
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Google.Protobuf.dll
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Microsoft.Band.dll
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Microsoft.Band.Phone.dll
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Microsoft.Band.Store.dll
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Microsoft.Band.Phone.pri
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Microsoft.Band.Store.pri
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\LoneWorkerPoC.csprojResolveAssemblyReference.cache
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\App.g.i.cs
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\App.g.cs
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MainPage.g.i.cs
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MainPage.g.cs
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\XamlTypeInfo.g.cs
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\App.xaml
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MainPage.xaml
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\App.xbf
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MainPage.xbf
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\XamlSaveStateFile.xml
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\LoneWorkerPoC.exe
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\LoneWorkerPoC.pdb
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\LoneWorkerPoC.csproj.GenerateResource.Cache
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\priconfig.xml
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\priconfig.xml.intermediate
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\layout.resfiles
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\layout.resfiles.intermediate
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\resources.resfiles
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\resources.resfiles.intermediate
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\pri.resfiles
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\pri.resfiles.intermediate
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\qualifiers.txt
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\qualifiers.txt.intermediate
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MultipleQualifiersPerDimensionFound.txt
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Microsoft.Band.Phone.pri.xml
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Microsoft.Band.Store.pri.xml
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\ProjectArchitectures.txt
