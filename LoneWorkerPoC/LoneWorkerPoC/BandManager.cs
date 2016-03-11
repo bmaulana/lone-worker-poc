@@ -15,10 +15,23 @@ namespace LoneWorkerPoC
     public class BandManager
     {
         private const int BandDelay = 100; //delay in communicating with the band for sensor retreival in milliseconds
+        private IBandClient bandClient;
 
-        public async Task DisplaySkinTemperature(TextBlock tempOutput)
+        public async Task<bool> ConnectTask(TextBlock output)
         {
-            tempOutput.Text = "Running ...";
+            var pairedBands = await BandClientManager.Instance.GetBandsAsync();
+            if (pairedBands.Length < 1)
+            {
+                output.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
+                return false;
+            }
+            bandClient = await BandClientManager.Instance.ConnectAsync(pairedBands[0]);
+            return true;
+        }
+
+        public async Task<decimal> DisplaySkinTemperature(TextBlock tempOutput)
+        {
+            //tempOutput.Text = "Running ...";
 
             try
             {
@@ -27,7 +40,7 @@ namespace LoneWorkerPoC
                 if (pairedBands.Length < 1)
                 {
                     tempOutput.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
-                    return;
+                    return -1;
                 }
 
                 // Connect to Microsoft Band.
@@ -70,6 +83,7 @@ namespace LoneWorkerPoC
                         var average = (decimal)readings.Sum() / readings.Count;
                         var message = average + " C";
                         tempOutput.Text = message;
+                        return average;
                     }
                 }
             }
@@ -77,11 +91,12 @@ namespace LoneWorkerPoC
             {
                 tempOutput.Text = ex.ToString();
             }
+            return -1;
         }
 
-        public async Task DisplayHeartRate(TextBlock heartRateOutput)
+        public async Task<decimal> DisplayHeartRate(TextBlock heartRateOutput)
         {
-            heartRateOutput.Text = "Running ...";
+            //heartRateOutput.Text = "Running ...";
 
             try
             {
@@ -90,7 +105,7 @@ namespace LoneWorkerPoC
                 if (pairedBands.Length < 1)
                 {
                     heartRateOutput.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
-                    return;
+                    return -1;
                 }
 
                 // Connect to Microsoft Band.
@@ -134,6 +149,7 @@ namespace LoneWorkerPoC
                         var message = average + " BPM";
 
                         heartRateOutput.Text = message;
+                        return average;
                     }
                 }
             }
@@ -141,6 +157,7 @@ namespace LoneWorkerPoC
             {
                 heartRateOutput.Text = ex.ToString();
             }
+            return -1;
         }
 
         public async Task<long> GetPedometer(TextBlock stepsOutput)

@@ -60,15 +60,9 @@ namespace LoneWorkerPoC
             // this event is handled for you.
         }
 
-        private async void BandClick(object sender, RoutedEventArgs e)
-        {
-            await _bandManager.DisplayHeartRate(heartRateOutput);
-            await _bandManager.DisplaySkinTemperature(tempOutput);
-        }
-
         private async void NotifClick(object sender, RoutedEventArgs e)
         {
-            await _bandManager.SendNotification(bandOutput, titleInput.Text, bodyInput.Text);
+            await _bandManager.SendNotification(BandOutput, TitleInput.Text, BodyInput.Text);
         }
 
         private async void ToggleClick(object sender, RoutedEventArgs e)
@@ -76,24 +70,34 @@ namespace LoneWorkerPoC
             _started = !_started;
             if (_started)
             {
-                _initSteps = await _bandManager.GetPedometer(stepsOutput);
-                _initDistance = await _bandManager.GetDistance(distanceOutput);
+                _initSteps = await _bandManager.GetPedometer(StepsOutput);
+                _initDistance = await _bandManager.GetDistance(DistanceOutput);
                 if (_initTime == null) { _initTime = new Stopwatch(); }
                 _initTime.Start();
 
-                toggleButton.Content = "End work";
-                stepsOutput.Text = "0";
-                distanceOutput.Text = "0 m";
-                timeOutput.Text = "0h 0min 0sec";
+                ToggleButton.Content = "End work";
+
+                TimeOutput.Text = "0h 0min 0sec";
+                StepsOutput.Text = "0";
+                DistanceOutput.Text = "0 m";
+
+                var heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
+                HeartRateLow.Text = heartRate.ToString();
+                HeartRateHigh.Text = heartRate.ToString();
+
+                await _bandManager.DisplaySkinTemperature(TempOutput);
             }
             else
             {
                 _initTime.Stop();
                 _initTime.Reset();
-                toggleButton.Content = "Start work";
-                stepsOutput.Text = "Not started";
-                distanceOutput.Text = "Not started";
-                timeOutput.Text = "Not started";
+
+                ToggleButton.Content = "Start work";
+                StepsOutput.Text = "Not started";
+                DistanceOutput.Text = "Not started";
+                TimeOutput.Text = "Not started";
+
+                //TODO save end of work data (and send it to DB/web dashboard?)
             }
         }
 
@@ -101,13 +105,32 @@ namespace LoneWorkerPoC
         {
             if (!_started) return;
 
-            var steps = await _bandManager.GetPedometer(stepsOutput) - _initSteps;
-            stepsOutput.Text = steps.ToString();
+            UpdateTime();
 
-            var distance = await _bandManager.GetDistance(distanceOutput) - _initDistance;
-            distanceOutput.Text = Convert.ToDecimal(distance) / 100 + " m";
+            var steps = await _bandManager.GetPedometer(StepsOutput) - _initSteps;
+            StepsOutput.Text = steps.ToString();
 
-            timeOutput.Text = _initTime.Elapsed.Hours + "h " + _initTime.Elapsed.Minutes + "min " + _initTime.Elapsed.Seconds + "sec";
+            UpdateTime();
+
+            var distance = await _bandManager.GetDistance(DistanceOutput) - _initDistance;
+            DistanceOutput.Text = Convert.ToDecimal(distance) / 100 + " m";
+
+            UpdateTime();
+
+            var heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
+            HeartRateLow.Text = heartRate.ToString();
+            HeartRateHigh.Text = heartRate.ToString();
+
+            UpdateTime();
+
+            await _bandManager.DisplaySkinTemperature(TempOutput);
+
+            UpdateTime();
+        }
+
+        private void UpdateTime()
+        {
+            TimeOutput.Text = _initTime.Elapsed.Hours + "h " + _initTime.Elapsed.Minutes + "min " + _initTime.Elapsed.Seconds + "sec";
         }
     }
 }

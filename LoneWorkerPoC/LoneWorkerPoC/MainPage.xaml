@@ -21,62 +21,54 @@
             <ColumnDefinition Width="19*"/>
         </Grid.ColumnDefinitions>
 
-
-
-
-
-
-        <StackPanel x:Name="contentPanel" Margin="0.333,0,5.167,10" Grid.Column="1">
-
-            <Button x:Name="bandButton" Content="Fire up Band sensors" Margin="0,0,0,0" Click="BandClick"/>
-
-            <StackPanel x:Name="heartRatePanel" Orientation="Vertical" Margin="0,0,0,0">
-                <StackPanel x:Name="Position" Orientation="Horizontal" >
-                    <TextBox  FontWeight="Bold" Text="Last Heart Rate"  Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="29"/>
-                    <TextBlock x:Name="heartRateOutput" Text="N/A" Margin="10,12,0,0" FontSize="16"/>
-                </StackPanel>
-                
-                <StackPanel x:Name="LowandHigh" Orientation="Horizontal" Margin="0,0,0,0">
-                    <TextBox FontWeight="Bold"  Text="Low" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16"  />
-                    <TextBlock x:Name="heartRateLow" Text="N/A" Margin="10,10,40,0" FontSize="16"/>
-                    <TextBox  FontWeight="Bold" Text="High"  Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16"/>
-                    <TextBlock x:Name="heartRateHigh" Text="N/A" Margin="10,10,40,0" FontSize="16"/>
-                </StackPanel>
-
-            </StackPanel>
-
-
-            <StackPanel x:Name="tempPanel" Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Skin Temperature" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
-                <TextBlock x:Name="tempOutput" Text="N/A" Margin="20,2,0,0" FontSize="16"/>
-            </StackPanel>
-            <Button x:Name="notifButton" Content="Send notification to Band" Margin="0,0,0,0" Click="NotifClick"/>
+        <StackPanel x:Name="ContentPanel" Margin="0.333,0,5.167,10" Grid.Column="1">
             
-            <StackPanel x:Name="inputs" Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBox x:Name="titleInput" Width="160" Margin="0,9,20,0" Height="1" HorizontalAlignment="Left" Text="" PlaceholderText="Title"/>
-                <TextBox x:Name="bodyInput" Width="160" Height="1" HorizontalAlignment="Left" Text="" PlaceholderText="Body"/>
-            </StackPanel>
+            <Button x:Name="ToggleButton" Content="Start work" Margin="0,10,0,0" Click="ToggleClick"/>
 
-            <TextBlock x:Name="bandOutput" Margin="0,0,0,0" FontSize="16"/>
-
-            <Button x:Name="toggleButton" Content="Start work" Margin="0,0,0,0" Click="ToggleClick"/>
-
-            <StackPanel x:Name="stepsPanel" Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Steps" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
-                <TextBlock x:Name="stepsOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
-            </StackPanel>
-
-            <StackPanel x:Name="distancePanel" Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Distance" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
-                <TextBlock x:Name="distanceOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
-            </StackPanel>
-
-            <StackPanel x:Name="timePanel" Orientation="Horizontal" Margin="0,0,0,0">
+            <StackPanel x:Name="TimePanel" Orientation="Horizontal" Margin="0,0,0,0">
                 <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Time Elasped" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
-                <TextBlock x:Name="timeOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
+                <TextBlock x:Name="TimeOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
             </StackPanel>
 
-            <Button x:Name="refreshButton" Content="Refresh" Margin="0,0,0,0" Click="RefreshClick"/>
+            <StackPanel x:Name="StepsPanel" Orientation="Horizontal" Margin="0,0,0,0">
+                <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Steps" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
+                <TextBlock x:Name="StepsOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
+            </StackPanel>
+
+            <StackPanel x:Name="DistancePanel" Orientation="Horizontal" Margin="0,0,0,0">
+                <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Distance" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
+                <TextBlock x:Name="DistanceOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
+            </StackPanel>
+
+            <StackPanel x:Name="HeartRatePanel" Orientation="Vertical" Margin="0,0,0,0">
+                <StackPanel x:Name="LowPanel" Orientation="Horizontal" Margin="0,0,0,0">
+                    <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Last Heart Rate" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
+                    <TextBlock x:Name="HeartRateOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
+                </StackPanel>
+
+                <StackPanel x:Name="HighPanel" Orientation="Horizontal" Margin="0,0,0,0">
+                    <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Low" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
+                    <TextBlock x:Name="HeartRateLow" Text="Not started" Margin="20,0,30,0" FontSize="16"/>
+                    <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="High" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
+                    <TextBlock x:Name="HeartRateHigh" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel x:Name="Temperature" Orientation="Horizontal" Margin="0,0,0,0">
+                <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Skin Temperature" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
+                <TextBlock x:Name="TempOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
+            </StackPanel>
+
+            <Button x:Name="RefreshButton" Content="Refresh" Margin="0,0,0,0" Click="RefreshClick"/>
+
+            <Button x:Name="NotifButton" Content="Send notification to Band" Margin="0,20,0,0" Click="NotifClick"/>
+            
+            <StackPanel x:Name="Inputs" Orientation="Horizontal" Margin="0,0,0,0">
+                <TextBox x:Name="TitleInput" Width="160" Margin="0,9,20,0" Height="1" HorizontalAlignment="Left" Text="" PlaceholderText="Title"/>
+                <TextBox x:Name="BodyInput" Width="160" Height="1" HorizontalAlignment="Left" Text="" PlaceholderText="Body"/>
+            </StackPanel>
+
+            <TextBlock x:Name="BandOutput" Margin="0,0,0,0" FontSize="16"/>
 
             <Button Content="PANIC" Height="22" HorizontalAlignment="center" Margin="0,0,0,0" x:Name="PanicButton" Width="160" Background="#FFE00F0F" FontSize="21.333" />
 
