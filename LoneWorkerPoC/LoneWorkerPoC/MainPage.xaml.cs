@@ -1,35 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Microsoft.Band;
-using Microsoft.Band.Notifications;
-using Microsoft.Band.Tiles;
-using Microsoft.Band.Tiles.Pages;
-using System.Threading.Tasks;
 using System.Diagnostics;
-using Windows.Storage;
-using Windows.Storage.Streams;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace LoneWorkerPoC
 {
     /// <summary>
     /// The main page of the LoneWorkerPoC app.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage
     {
-        private BandManager _bandManager;
+        private readonly BandManager _bandManager;
         private bool _started;
         private long _initSteps;
         private long _initDistance;
@@ -37,9 +18,9 @@ namespace LoneWorkerPoC
 
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.NavigationCacheMode = NavigationCacheMode.Required;
+            NavigationCacheMode = NavigationCacheMode.Required;
 
             _bandManager = new BandManager();
         }
@@ -59,6 +40,8 @@ namespace LoneWorkerPoC
             // If you are using the NavigationHelper provided by some templates,
             // this event is handled for you.
         }
+
+        //TODO: heart rate low/high, GPS location, panic button
 
         private async void NotifClick(object sender, RoutedEventArgs e)
         {
@@ -86,18 +69,23 @@ namespace LoneWorkerPoC
                 HeartRateHigh.Text = heartRate.ToString();
 
                 await _bandManager.DisplaySkinTemperature(TempOutput);
+
+                BandOutput.Text = "Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds; //TODO remove after 1 min or so
             }
             else
             {
+                //TODO save end of work data (and send it to DB/web dashboard?)
+
                 _initTime.Stop();
                 _initTime.Reset();
 
                 ToggleButton.Content = "Start work";
+
                 StepsOutput.Text = "Not started";
                 DistanceOutput.Text = "Not started";
                 TimeOutput.Text = "Not started";
-
-                //TODO save end of work data (and send it to DB/web dashboard?)
+                HeartRateOutput.Text = "Not started";
+                TempOutput.Text = "Not started";
             }
         }
 
@@ -105,27 +93,31 @@ namespace LoneWorkerPoC
         {
             if (!_started) return;
 
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
             UpdateTime();
 
             var steps = await _bandManager.GetPedometer(StepsOutput) - _initSteps;
             StepsOutput.Text = steps.ToString();
 
-            UpdateTime();
+            //UpdateTime();
 
             var distance = await _bandManager.GetDistance(DistanceOutput) - _initDistance;
             DistanceOutput.Text = Convert.ToDecimal(distance) / 100 + " m";
 
-            UpdateTime();
+            //UpdateTime();
 
             var heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
             HeartRateLow.Text = heartRate.ToString();
             HeartRateHigh.Text = heartRate.ToString();
 
-            UpdateTime();
+            //UpdateTime();
 
             await _bandManager.DisplaySkinTemperature(TempOutput);
 
             UpdateTime();
+
+            BandOutput.Text = "Refresh time: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds; //TODO remove after 1 min or so
         }
 
         private void UpdateTime()
@@ -137,12 +129,17 @@ namespace LoneWorkerPoC
         {
             if (await _bandManager.ConnectTask())
             {
-                BandOutput.Text = "Connected.";
+                BandOutput.Text = "Connected."; //TODO remove after 1 min or so
             }
             else
             {
                 BandOutput.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
             }
+        }
+
+        private void PanicClick(object sender, RoutedEventArgs e)
+        {
+            //TODO
         }
     }
 }

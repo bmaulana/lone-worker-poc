@@ -15,6 +15,8 @@ namespace LoneWorkerPoC
     public class BandManager
     {
         private const int BandDelay = 100; //delay in communicating with the band for sensor retreival in milliseconds
+        private const string RunningMessage = "Running ...";
+
         private IBandClient _bandClient;
         private bool _started;
 
@@ -23,14 +25,18 @@ namespace LoneWorkerPoC
             var pairedBands = await BandClientManager.Instance.GetBandsAsync();
             if (pairedBands.Length < 1) return false;
             _bandClient = await BandClientManager.Instance.ConnectAsync(pairedBands[0]);
+
+            //TODO add consent stuff
+
             _started = true;
             return true;
         }
 
-        public async Task<decimal> DisplaySkinTemperature(TextBlock tempOutput)
+        public async Task<decimal> DisplaySkinTemperature(TextBlock output)
         {
-            //tempOutput.Text = "Running ...";
             if (!_started) return -1;
+
+            output.Text = RunningMessage;
 
             try
             {
@@ -48,7 +54,7 @@ namespace LoneWorkerPoC
 
                     if (!tempConsentGranted)
                     {
-                        tempOutput.Text = "Access to the skin temperature sensor is denied.";
+                        output.Text = "Access to the skin temperature sensor is denied.";
                     }
                     else
                     {
@@ -70,21 +76,22 @@ namespace LoneWorkerPoC
 
                         var average = (decimal)readings.Sum() / readings.Count;
                         var message = average + " C";
-                        tempOutput.Text = message;
+                        output.Text = message;
                         return average;
                     }
             }
             catch (Exception ex)
             {
-                tempOutput.Text = ex.ToString();
+                output.Text = ex.ToString();
             }
             return -1;
         }
 
-        public async Task<decimal> DisplayHeartRate(TextBlock heartRateOutput)
+        public async Task<decimal> DisplayHeartRate(TextBlock output)
         {
-            //heartRateOutput.Text = "Running ...";
             if (!_started) return -1;
+
+            output.Text = RunningMessage;
 
             try
             {
@@ -102,7 +109,7 @@ namespace LoneWorkerPoC
 
                     if (!heartRateConsentGranted)
                     {
-                        heartRateOutput.Text = "Access to the heart rate sensor is denied.";
+                        output.Text = "Access to the heart rate sensor is denied.";
                     }
                     else
                     {
@@ -125,19 +132,23 @@ namespace LoneWorkerPoC
                         var average = (decimal)readings.Sum() / readings.Count;
                         var message = average + " BPM";
 
-                        heartRateOutput.Text = message;
+                        output.Text = message;
                         return average;
                     }
             }
             catch (Exception ex)
             {
-                heartRateOutput.Text = ex.ToString();
+                output.Text = ex.ToString();
             }
             return -1;
         }
 
-        public async Task<long> GetPedometer(TextBlock stepsOutput)
+        public async Task<long> GetPedometer(TextBlock output)
         {
+            if (!_started) return -1;
+
+            output.Text = RunningMessage;
+
             try
             {
                     bool consentGranted;
@@ -154,7 +165,7 @@ namespace LoneWorkerPoC
 
                     if (!consentGranted)
                     {
-                        stepsOutput.Text = "Access to the pedometer is denied.";
+                        output.Text = "Access to the pedometer is denied.";
                     }
                     else
                     {
@@ -177,13 +188,17 @@ namespace LoneWorkerPoC
             }
             catch (Exception ex)
             {
-                stepsOutput.Text = ex.ToString();
+                output.Text = ex.ToString();
             }
             return -1;
         }
 
-        public async Task<long> GetDistance(TextBlock distanceOutput)
+        public async Task<long> GetDistance(TextBlock output)
         {
+            if (!_started) return -1;
+
+            output.Text = RunningMessage;
+
             try
             {
                     bool consentGranted;
@@ -200,7 +215,7 @@ namespace LoneWorkerPoC
 
                     if (!consentGranted)
                     {
-                        distanceOutput.Text = "Access to the distance sensor is denied.";
+                        output.Text = "Access to the distance sensor is denied.";
                     }
                     else
                     {
@@ -223,20 +238,20 @@ namespace LoneWorkerPoC
             }
             catch (Exception ex)
             {
-                distanceOutput.Text = ex.ToString();
+                output.Text = ex.ToString();
             }
             return -1;
         }
 
-        public async Task SendNotification(TextBlock bandOutput, string title, string message)
+        public async Task SendNotification(TextBlock output, string title, string message)
         {
-            bandOutput.Text = "Running ...";
+            output.Text = RunningMessage;
 
             try
             {
                     // Create a Tile.
-                    Guid myTileId = new Guid("D0BAB7A8-FFDC-43C3-B995-87AFB2A43387");
-                    BandTile myTile = new BandTile(myTileId)
+                    var myTileId = new Guid("D0BAB7A8-FFDC-43C3-B995-87AFB2A43387");
+                    var myTile = new BandTile(myTileId)
                     {
                         Name = "Notifications Tile",
                         TileIcon = await LoadIcon("ms-appx:///Assets/SampleTileIconLarge.png"),
@@ -267,21 +282,21 @@ namespace LoneWorkerPoC
                     // Send a notification.
                     await _bandClient.NotificationManager.SendMessageAsync(myTileId, title, message, DateTimeOffset.Now, MessageFlags.ShowDialog);
 
-                    bandOutput.Text = "Message sent."; //TODO create task (don't await it?) to remove text after ~5 sec
+                    output.Text = "Message sent."; //TODO create task (don't await it?) to remove text after ~5 sec
             }
             catch (Exception ex)
             {
-                bandOutput.Text = ex.ToString();
+                output.Text = ex.ToString();
             }
         }
 
         private async Task<BandIcon> LoadIcon(string uri)
         {
-            StorageFile imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(uri));
+            var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(uri));
 
             using (IRandomAccessStream fileStream = await imageFile.OpenAsync(FileAccessMode.Read))
             {
-                WriteableBitmap bitmap = new WriteableBitmap(1, 1);
+                var bitmap = new WriteableBitmap(1, 1);
                 await bitmap.SetSourceAsync(fileStream);
                 return bitmap.ToBandIcon();
             }
