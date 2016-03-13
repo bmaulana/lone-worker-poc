@@ -2,6 +2,8 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Windows.Devices.Geolocation;
 
 namespace LoneWorkerPoC
 {
@@ -12,8 +14,11 @@ namespace LoneWorkerPoC
     {
         private readonly BandManager _bandManager;
         private bool _started;
+        private bool _connected;
         private long _initSteps;
         private long _initDistance;
+        private decimal _prevHeartRateLow;
+        private decimal _prevHeartRateHigh;
         private Stopwatch _initTime;
 
         public MainPage()
@@ -41,8 +46,6 @@ namespace LoneWorkerPoC
             // this event is handled for you.
         }
 
-        //TODO: heart rate low/high, GPS location, panic button
-
         private async void NotifClick(object sender, RoutedEventArgs e)
         {
             await _bandManager.SendNotification(NotifOutput, TitleInput.Text, BodyInput.Text);
@@ -50,27 +53,45 @@ namespace LoneWorkerPoC
 
         private async void ToggleClick(object sender, RoutedEventArgs e)
         {
+            if (!_connected)
+            {
+                if (await _bandManager.ConnectTask())
+                {
+                    BandOutput.Text = "Connected.";
+                    _connected = true;
+                }
+                else
+                {
+                    BandOutput.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
+                }
+            }
+
             _started = !_started;
             if (_started)
             {
-                _initSteps = await _bandManager.GetPedometer(StepsOutput);
-                _initDistance = await _bandManager.GetDistance(DistanceOutput);
-                if (_initTime == null) { _initTime = new Stopwatch(); }
-                _initTime.Start();
-
                 ToggleButton.Content = "End work";
 
+                if (_initTime == null) { _initTime = new Stopwatch(); }
+                _initTime.Start();
                 TimeOutput.Text = "0h 0min 0sec";
+
+                _initSteps = await _bandManager.GetPedometer(StepsOutput);
                 StepsOutput.Text = "0";
+
+                _initDistance = await _bandManager.GetDistance(DistanceOutput);
                 DistanceOutput.Text = "0 m";
 
                 var heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
+                _prevHeartRateLow = heartRate;
                 HeartRateLow.Text = heartRate.ToString();
+                _prevHeartRateHigh = heartRate;
                 HeartRateHigh.Text = heartRate.ToString();
 
                 await _bandManager.DisplaySkinTemperature(TempOutput);
 
-                BandOutput.Text = "Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds; //TODO remove after 1 min or so
+                await OneShotLocation();
+
+                BandOutput.Text = "Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds + " s"; //TODO remove after 1 min or so
             }
             else
             {
@@ -85,7 +106,11 @@ namespace LoneWorkerPoC
                 DistanceOutput.Text = "Not started";
                 TimeOutput.Text = "Not started";
                 HeartRateOutput.Text = "Not started";
+                HeartRateLow.Text = "Not started";
+                HeartRateHigh.Text = "Not started";
                 TempOutput.Text = "Not started";
+                LatOutput.Text = "Not started";
+                LongOutput.Text = "Not started";
             }
         }
 
@@ -108,16 +133,31 @@ namespace LoneWorkerPoC
             //UpdateTime();
 
             var heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
-            HeartRateLow.Text = heartRate.ToString();
-            HeartRateHigh.Text = heartRate.ToString();
+            if (heartRate < _prevHeartRateLow)
+            {
+                HeartRateLow.Text = heartRate.ToString();
+                _prevHeartRateLow = heartRate;
+            }
+            if (heartRate > _prevHeartRateHigh)
+            {
+                HeartRateHigh.Text = heartRate.ToString();
+                _prevHeartRateHigh = heartRate;
+            }
 
             //UpdateTime();
 
             await _bandManager.DisplaySkinTemperature(TempOutput);
 
+            await OneShotLocation();
+
             UpdateTime();
 
-            BandOutput.Text = "Refresh time: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds; //TODO remove after 1 min or so
+            BandOutput.Text = "Refresh time: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds + " s"; //TODO remove after 1 min or so
+        }
+        
+        private void PanicClick(object sender, RoutedEventArgs e)
+        {
+            //TODO
         }
 
         private void UpdateTime()
@@ -125,21 +165,53 @@ namespace LoneWorkerPoC
             TimeOutput.Text = _initTime.Elapsed.Hours + "h " + _initTime.Elapsed.Minutes + "min " + _initTime.Elapsed.Seconds + "sec";
         }
 
-        private async void ConnectClick(object sender, RoutedEventArgs e)
+        private async Task OneShotLocation()
         {
-            if (await _bandManager.ConnectTask())
-            {
-                BandOutput.Text = "Connected."; //TODO remove after 1 min or so
-            }
-            else
-            {
-                BandOutput.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
-            }
-        }
+            //TODO improve time, use newer non deprecated API, ask for consent
 
-        private void PanicClick(object sender, RoutedEventArgs e)
-        {
-            //TODO
+            var geolocator = new Geolocator {DesiredAccuracyInMeters = 50};
+
+            LatOutput.Text = "Refreshing ...";
+            LongOutput.Text = "Refreshing ...";
+
+            try
+            {
+                var geoposition = await geolocator.GetGeopositionAsync(TimeSpan.FromMinutes(5), TimeSpan.FromSeconds(10));
+
+                var latitude = geoposition.Coordinate.Latitude;
+                var longitude = geoposition.Coordinate.Longitude;
+
+                if (latitude > 0)
+                {
+                    LatOutput.Text = latitude + " N";
+                }
+                else
+                {
+                    LatOutput.Text = -latitude + " S";
+                }
+
+                if (longitude > 0)
+                {
+                    LongOutput.Text = longitude + " E";
+                }
+                else
+                {
+                    LongOutput.Text = -longitude + " W";
+                }
+            }
+            catch (Exception ex)
+            {
+                if ((uint) ex.HResult == 0x80004004)
+                {
+                    LatOutput.Text = "location is disabled in phone settings.";
+                    LongOutput.Text = "location is disabled in phone settings.";
+                }
+                else
+                {
+                    LatOutput.Text = "Something went wrong.";
+                    LongOutput.Text = "Something went wrong.";
+                }
+            }
         }
     }
 }
