@@ -82,3 +82,17 @@ D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MultipleQualifie
 D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Microsoft.Band.Phone.pri.xml
 D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Microsoft.Band.Store.pri.xml
 D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\ProjectArchitectures.txt
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\App.g.i.cs
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\App.g.cs
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Login.g.i.cs
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Login.g.cs
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MainPage.g.i.cs
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MainPage.g.cs
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Profile.g.i.cs
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Profile.g.cs
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\XamlTypeInfo.g.cs
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\App.xaml
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MainPage.xaml
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\App.xbf
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MainPage.xbf
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\XamlSaveStateFile.xml
