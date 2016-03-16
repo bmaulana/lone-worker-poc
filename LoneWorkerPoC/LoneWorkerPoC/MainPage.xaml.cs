@@ -9,6 +9,9 @@ namespace LoneWorkerPoC
 {
     /// <summary>
     /// The main page of the LoneWorkerPoC app.
+    /// TODO: Automate refreshing sensors, optimise sensor reading speed (esp. location), 
+    /// TODO: Panic button functionality (return JSON string based on current sensor values),
+    /// TODO: Automate sending notifs to Band when message from web DB is received.
     /// </summary>
     public sealed partial class MainPage
     {
@@ -116,6 +119,8 @@ namespace LoneWorkerPoC
 
         private async void RefreshClick(object sender, RoutedEventArgs e)
         {
+            //TODO auto refresh (somehow) every minute or so (maybe make user settings page for sync frequency)
+
             if (!_started) return;
 
             var stopwatch = new Stopwatch();

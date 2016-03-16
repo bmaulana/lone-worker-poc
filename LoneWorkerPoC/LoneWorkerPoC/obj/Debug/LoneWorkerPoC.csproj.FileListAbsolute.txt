@@ -96,3 +96,13 @@ C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWo
 C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\App.xbf
 C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\MainPage.xbf
 C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\XamlSaveStateFile.xml
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Login.g.i.cs
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Login.g.cs
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Login.xaml
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Login.xbf
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\ProfilePage.g.i.cs
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\ProfilePage.g.cs
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\ProfilePage.xaml
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\ProfilePage.xbf
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Login.xbf
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\ProfilePage.xbf
