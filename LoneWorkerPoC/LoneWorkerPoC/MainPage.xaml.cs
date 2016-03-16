@@ -20,9 +20,15 @@ namespace LoneWorkerPoC
         private bool _connected;
         private long _initSteps;
         private long _initDistance;
-        private decimal _prevHeartRateLow;
-        private decimal _prevHeartRateHigh;
         private Stopwatch _initTime;
+        private long _steps;
+        private long _distance;
+        private decimal _heartRateLow;
+        private decimal _heartRateHigh;
+        private decimal _heartRate;
+        private decimal _temperature;
+        private double _latitude;
+        private double _longitude;
 
         public MainPage()
         {
@@ -79,18 +85,20 @@ namespace LoneWorkerPoC
                 TimeOutput.Text = "0h 0min 0sec";
 
                 _initSteps = await _bandManager.GetPedometer(StepsOutput);
+                _steps = 0;
                 StepsOutput.Text = "0";
 
                 _initDistance = await _bandManager.GetDistance(DistanceOutput);
+                _distance = 0;
                 DistanceOutput.Text = "0 m";
 
-                var heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
-                _prevHeartRateLow = heartRate;
-                HeartRateLow.Text = heartRate.ToString();
-                _prevHeartRateHigh = heartRate;
-                HeartRateHigh.Text = heartRate.ToString();
+                _heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
+                _heartRateLow = _heartRate;
+                HeartRateLow.Text = _heartRate.ToString();
+                _heartRateHigh = _heartRate;
+                HeartRateHigh.Text = _heartRate.ToString();
 
-                await _bandManager.DisplaySkinTemperature(TempOutput);
+                _temperature = await _bandManager.DisplaySkinTemperature(TempOutput);
 
                 await OneShotLocation();
 
@@ -130,28 +138,22 @@ namespace LoneWorkerPoC
             var steps = await _bandManager.GetPedometer(StepsOutput) - _initSteps;
             StepsOutput.Text = steps.ToString();
 
-            //UpdateTime();
-
             var distance = await _bandManager.GetDistance(DistanceOutput) - _initDistance;
             DistanceOutput.Text = Convert.ToDecimal(distance) / 100 + " m";
-
-            //UpdateTime();
-
-            var heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
-            if (heartRate < _prevHeartRateLow)
+            
+            _heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
+            if (_heartRate < _heartRateLow)
             {
-                HeartRateLow.Text = heartRate.ToString();
-                _prevHeartRateLow = heartRate;
+                HeartRateLow.Text = _heartRate.ToString();
+                _heartRateLow = _heartRate;
             }
-            if (heartRate > _prevHeartRateHigh)
+            if (_heartRate > _heartRateHigh)
             {
-                HeartRateHigh.Text = heartRate.ToString();
-                _prevHeartRateHigh = heartRate;
+                HeartRateHigh.Text = _heartRate.ToString();
+                _heartRateHigh = _heartRate;
             }
 
-            //UpdateTime();
-
-            await _bandManager.DisplaySkinTemperature(TempOutput);
+            _temperature = await _bandManager.DisplaySkinTemperature(TempOutput);
 
             await OneShotLocation();
 
@@ -159,10 +161,21 @@ namespace LoneWorkerPoC
 
             BandOutput.Text = "Refresh time: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds + " s"; //TODO remove after 1 min or so
         }
-        
+
+        private void CheckInClick(object sender, RoutedEventArgs e)
+        {
+            var panic = new PanicString(_initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh,
+                _temperature, _latitude, _longitude);
+            var json = panic.GetJsonString(false);
+            //TODO implement sending JSON string to HQ (test using popup message?)
+        }
+
         private void PanicClick(object sender, RoutedEventArgs e)
         {
-            //TODO
+            var panic = new PanicString(_initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh, 
+                _temperature, _latitude, _longitude);
+            var json = panic.GetJsonString(true);
+            //TODO implement sending JSON string to HQ (test using popup message?)
         }
 
         private void UpdateTime()
@@ -183,25 +196,25 @@ namespace LoneWorkerPoC
             {
                 var geoposition = await geolocator.GetGeopositionAsync(TimeSpan.FromMinutes(5), TimeSpan.FromSeconds(10));
 
-                var latitude = geoposition.Coordinate.Latitude;
-                var longitude = geoposition.Coordinate.Longitude;
+                _latitude = geoposition.Coordinate.Latitude;
+                _longitude = geoposition.Coordinate.Longitude;
 
-                if (latitude > 0)
+                if (_latitude >= 0)
                 {
-                    LatOutput.Text = latitude + " N";
+                    LatOutput.Text = _latitude + " N";
                 }
                 else
                 {
-                    LatOutput.Text = -latitude + " S";
+                    LatOutput.Text = -_latitude + " S";
                 }
 
-                if (longitude > 0)
+                if (_longitude >= 0)
                 {
-                    LongOutput.Text = longitude + " E";
+                    LongOutput.Text = _longitude + " E";
                 }
                 else
                 {
-                    LongOutput.Text = -longitude + " W";
+                    LongOutput.Text = -_longitude + " W";
                 }
             }
             catch (Exception ex)

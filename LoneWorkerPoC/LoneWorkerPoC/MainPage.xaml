@@ -2,7 +2,6 @@
     x:Class="LoneWorkerPoC.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:LoneWorkerPoC"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -21,32 +20,32 @@
             <ColumnDefinition Width="19*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel x:Name="ContentPanel" Margin="0,0,0,0" Grid.Column="1">
+        <StackPanel Margin="0,0,0,0" Grid.Column="1">
 
             <Button x:Name="ToggleButton" Content="Start work" Margin="0,10,0,0" Click="ToggleClick"/>
 
-            <StackPanel x:Name="TimePanel" Orientation="Horizontal" Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Time Elasped" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
                 <TextBlock x:Name="TimeOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
             </StackPanel>
 
-            <StackPanel x:Name="StepsPanel" Orientation="Horizontal" Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Steps" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
                 <TextBlock x:Name="StepsOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
             </StackPanel>
 
-            <StackPanel x:Name="DistancePanel" Orientation="Horizontal" Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Distance" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
                 <TextBlock x:Name="DistanceOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
             </StackPanel>
 
-            <StackPanel x:Name="HeartRatePanel" Orientation="Vertical" Margin="0,0,0,0">
-                <StackPanel x:Name="LowPanel" Orientation="Horizontal" Margin="0,0,0,0">
+            <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                     <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Last Heart Rate" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
                     <TextBlock x:Name="HeartRateOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
                 </StackPanel>
 
-                <StackPanel x:Name="HighPanel" Orientation="Horizontal" Margin="0,0,0,0">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                     <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Low" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
                     <TextBlock x:Name="HeartRateLow" Text="Not started" Margin="20,0,30,0" FontSize="16"/>
                     <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="High" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
@@ -54,28 +53,31 @@
                 </StackPanel>
             </StackPanel>
 
-            <StackPanel x:Name="Temperature" Orientation="Horizontal" Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Skin Temperature" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
                 <TextBlock x:Name="TempOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
             </StackPanel>
 
-            <StackPanel x:Name="Latitude" Orientation="Horizontal" Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Latitude" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
                 <TextBlock x:Name="LatOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
             </StackPanel>
 
-            <StackPanel x:Name="Longitude" Orientation="Horizontal" Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Longitude" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
                 <TextBlock x:Name="LongOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
             </StackPanel>
 
-            <Button x:Name="RefreshButton" Content="Refresh" Margin="0,0,0,0" Click="RefreshClick"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                <Button Content="Refresh" Margin="0,0,10,0" Click="RefreshClick"/>
+                <Button Content="Check In" Margin="10,0,0,0" Click="CheckInClick"/>
+            </StackPanel>
 
             <TextBlock x:Name="BandOutput" Margin="0,0,0,0" FontSize="16"/>
 
-            <Button x:Name="NotifButton" Content="Send notification to Band" Margin="0,20,0,0" Click="NotifClick"/>
+            <Button Content="Send notification to Band" Margin="0,20,0,0" Click="NotifClick"/>
             
-            <StackPanel x:Name="Inputs" Orientation="Horizontal" Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <TextBox x:Name="TitleInput" Width="160" Margin="0,9,20,0" Height="1" HorizontalAlignment="Left" Text="" PlaceholderText="Title"/>
                 <TextBox x:Name="BodyInput" Width="160" Height="1" HorizontalAlignment="Left" Text="" PlaceholderText="Body"/>
             </StackPanel>
