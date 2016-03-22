@@ -336,6 +336,11 @@ namespace LoneWorkerPoC
 
             Frame.Navigate(typeof(ProfilePage));
         }
+
+        private void NavigateToNotifications(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(NotificationsPage));
+        }
     }
 
 }

@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="#FFAE4343">
 
     <Grid>
         <StackPanel Orientation="Vertical" Margin="20,60,20,20">
@@ -24,5 +24,18 @@
 
             <TextBlock x:Name="NotifOutput" Margin="0,0,0,0" FontSize="16"/>
         </StackPanel>
+        <ComboBox Width="145" x:Name="SourceBox2" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="" BorderThickness="0" Margin="214.333,0,19,467" Foreground="{x:Null}" Grid.ColumnSpan="2" Grid.Column="1">
+            <ComboBox.Background>
+                <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>
+
+            </ComboBox.Background>
+            <ComboBoxItem Content="Profile"  Background="#FFDE2A2A" Tapped="NavigateToProfile"/>
+            <ComboBoxItem Content="Notifications" Background="#FFDE2A2A" />
+            <ComboBoxItem IsSelected="True" Content="Dashboard" Tapped="NavigateToDashboard" Background="#FFDE2A2A">
+                <ComboBoxItem.Resources>
+                    <Color x:Key="MainColor">#FFAE4343</Color>
+                </ComboBoxItem.Resources>
+            </ComboBoxItem>
+        </ComboBox>
     </Grid>
 </Page>

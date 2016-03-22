@@ -35,5 +35,15 @@ namespace LoneWorkerPoC
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
         }
+
+        private void NavigateToDashboard(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
+        }
+
+        private void NavigateToProfile(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ProfilePage));
+        }
     }
 }

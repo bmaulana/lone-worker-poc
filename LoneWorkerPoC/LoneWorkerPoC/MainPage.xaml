@@ -95,7 +95,7 @@
 
             </ComboBox.Background>
             <ComboBoxItem Content="Profile"  Background="#FFDE2A2A" Tapped="NavigateToProfile"/>
-            <ComboBoxItem Content="Notifications">
+            <ComboBoxItem Content="Notifications" Tapped="NavigateToNotifications">
                 <ComboBoxItem.Background>
                     <SolidColorBrush Color="{StaticResource Color2}"/>
                 </ComboBoxItem.Background>

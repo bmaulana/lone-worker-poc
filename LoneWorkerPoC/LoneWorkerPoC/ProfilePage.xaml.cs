@@ -40,5 +40,15 @@ namespace LoneWorkerPoC
         {
             //TODO
         }
+
+        private void NavigateToDashboard(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
+        }
+
+        private void NavigateToNotifications(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(NotificationsPage));
+        }
     }
 }
