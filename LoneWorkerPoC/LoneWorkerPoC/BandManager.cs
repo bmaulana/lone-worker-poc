@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Microsoft.Band;
@@ -245,7 +244,7 @@ namespace LoneWorkerPoC
 
         public async Task SendNotification(TextBlock output, string title, string message)
         {
-            output.Text = RunningMessage;
+            output.Text = "Sending...";
 
             try
             {
@@ -290,11 +289,11 @@ namespace LoneWorkerPoC
             }
         }
 
-        private async Task<BandIcon> LoadIcon(string uri)
+        private static async Task<BandIcon> LoadIcon(string uri)
         {
             var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(uri));
 
-            using (IRandomAccessStream fileStream = await imageFile.OpenAsync(FileAccessMode.Read))
+            using (var fileStream = await imageFile.OpenAsync(FileAccessMode.Read))
             {
                 var bitmap = new WriteableBitmap(1, 1);
                 await bitmap.SetSourceAsync(fileStream);

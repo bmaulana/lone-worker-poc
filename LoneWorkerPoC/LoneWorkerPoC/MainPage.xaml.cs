@@ -56,83 +56,119 @@ namespace LoneWorkerPoC
         {
             // TODO: Automate sending notifs to Band when message from web DB is received.
             // TODO: Move notifications to separate page
+            await BandConnect(); //or if(!_started) return;
             await _bandManager.SendNotification(NotifOutput, TitleInput.Text, BodyInput.Text);
         }
 
         private async void ToggleClick(object sender, RoutedEventArgs e)
         {
-            if (!_connected)
-            {
-                if (await _bandManager.ConnectTask())
-                {
-                    BandOutput.Text = "Connected.";
-                    _connected = true;
-                }
-                else
-                {
-                    BandOutput.Text = "We cannot detect a paired Microsoft Band. Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
-                }
-            }
+            await BandConnect();
 
             _started = !_started;
             if (_started)
             {
+                if (!_connected) return;
+                await StartWork();
                 ToggleButton.Content = "End work";
-
-                if (_initTime == null) { _initTime = new Stopwatch(); }
-                _initTime.Start();
-                TimeOutput.Text = "0h 0min 0sec";
-
-                _initSteps = await _bandManager.GetPedometer(StepsOutput);
-                _steps = 0;
-                StepsOutput.Text = "0";
-
-                _initDistance = await _bandManager.GetDistance(DistanceOutput);
-                _distance = 0;
-                DistanceOutput.Text = "0 m";
-
-                _heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
-                _heartRateLow = _heartRate;
-                HeartRateLow.Text = _heartRate.ToString();
-                _heartRateHigh = _heartRate;
-                HeartRateHigh.Text = _heartRate.ToString();
-
-                _temperature = await _bandManager.DisplaySkinTemperature(TempOutput);
-
-                await OneShotLocation();
-
-                BandOutput.Text = "Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds + " s"; //TODO remove after 1 min or so
-                Debug.WriteLine("Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds + " s");
             }
             else
             {
-                //TODO save end of work data (and send it to DB/web dashboard?)
-
-                _initTime.Stop();
-                _initTime.Reset();
-
+                EndWork();
                 ToggleButton.Content = "Start work";
-
-                StepsOutput.Text = "Not started";
-                DistanceOutput.Text = "Not started";
-                TimeOutput.Text = "Not started";
-                HeartRateOutput.Text = "Not started";
-                HeartRateLow.Text = "Not started";
-                HeartRateHigh.Text = "Not started";
-                TempOutput.Text = "Not started";
-                LatOutput.Text = "Not started";
-                LongOutput.Text = "Not started";
             }
+        }
+
+        private async Task BandConnect()
+        {
+            if (!_connected)
+            {
+                BandOutput.Text = "Connecting to Band...";
+                if (await _bandManager.ConnectTask())
+                {
+                    BandOutput.Text = "Connected to Band.";
+                    _connected = true;
+                }
+                else
+                {
+                    BandOutput.Text = "We cannot detect a paired Microsoft Band. " +
+                                      "Make sure that you have the latest firmware installed on your Band, as provided by the latest Microsoft Health app.";
+                }
+            }
+        }
+
+        private async Task StartWork()
+        {
+            if (_initTime == null) { _initTime = new Stopwatch(); }
+            _initTime.Start();
+            TimeOutput.Text = "0h 0min 0sec";
+
+            _initSteps = await _bandManager.GetPedometer(StepsOutput);
+            _steps = 0;
+            StepsOutput.Text = "0";
+
+            _initDistance = await _bandManager.GetDistance(DistanceOutput);
+            _distance = 0;
+            DistanceOutput.Text = "0 m";
+
+            _heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
+            _heartRateLow = _heartRate;
+            HeartRateLow.Text = _heartRate.ToString();
+            _heartRateHigh = _heartRate;
+            HeartRateHigh.Text = _heartRate.ToString();
+
+            _temperature = await _bandManager.DisplaySkinTemperature(TempOutput);
+
+            await OneShotLocation();
+
+            BandOutput.Text = "Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds + " s"; //TODO remove after 1 min or so
+        }
+
+        private void EndWork()
+        {
+            //TODO save end of work data (and send it to DB/web dashboard?)
+
+            _initTime.Stop();
+            _initTime.Reset();
+            TimeOutput.Text = "Not started";
+
+            _initSteps = 0;
+            _steps = 0;
+            StepsOutput.Text = "Not started";
+
+            _initDistance = 0;
+            _distance = 0;
+            DistanceOutput.Text = "Not started";
+
+            _heartRate = 0;
+            _heartRateHigh = 0;
+            _heartRateLow = 0;
+            HeartRateOutput.Text = "Not started";
+            HeartRateLow.Text = "Not started";
+            HeartRateHigh.Text = "Not started";
+
+
+            TempOutput.Text = "Not started";
+            LatOutput.Text = "Not started";
+            LongOutput.Text = "Not started";
+
+            BandOutput.Text = "Task ended"; //TODO remove after 1 min or so
         }
 
         private async void RefreshClick(object sender, RoutedEventArgs e)
         {
             //TODO auto refresh (somehow) every minute or so (maybe make user settings page for sync frequency)
+            await PullSensors();
+        }
+
+        private async Task PullSensors()
+        {
+            //TODO check whether band is still connected and handle band not connected
 
             if (!_started) return;
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
+
             UpdateTime();
 
             var steps = await _bandManager.GetPedometer(StepsOutput) - _initSteps;
@@ -140,7 +176,7 @@ namespace LoneWorkerPoC
 
             var distance = await _bandManager.GetDistance(DistanceOutput) - _initDistance;
             DistanceOutput.Text = Convert.ToDecimal(distance) / 100 + " m";
-            
+
             _heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
             if (_heartRate < _heartRateLow)
             {
@@ -160,11 +196,11 @@ namespace LoneWorkerPoC
             UpdateTime();
 
             BandOutput.Text = "Refresh time: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds + " s"; //TODO remove after 1 min or so
-            Debug.WriteLine("Refresh time: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds + " s");
         }
 
         private void CheckInClick(object sender, RoutedEventArgs e)
         {
+            if(!_started) return;
             var panic = new PanicString(_initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh,
                 _temperature, _latitude, _longitude);
             var json = panic.ToJsonString(false);
@@ -174,6 +210,7 @@ namespace LoneWorkerPoC
 
         private void PanicClick(object sender, RoutedEventArgs e)
         {
+            if(!_started) return;
             var panic = new PanicString(_initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh, 
                 _temperature, _latitude, _longitude);
             var json = panic.ToJsonString(true);
