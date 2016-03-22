@@ -315,7 +315,7 @@ namespace LoneWorkerPoC
 
         private void ComboBox_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
-
+            if (SourceBox?.SelectedItem == null) return;
             if (SourceBox.SelectedItem.ToString() == "Profile")
             {
                 Frame.Navigate(typeof(ProfilePage));
