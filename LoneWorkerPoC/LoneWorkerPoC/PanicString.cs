@@ -5,38 +5,38 @@ namespace LoneWorkerPoC
 {
     public class PanicString
     {
-        private bool _panic;
-        private int _hours;
-        private int _minutes;
-        private int _seconds;
-        private long _steps;
-        private long _distance;
-        private decimal _heartRate;
-        private decimal _heartRateLow;
-        private decimal _heartRateHigh;
-        private decimal _temperature;
-        private double _latitude;
-        private double _longitude;
+        public bool Panic;
+        public readonly int Hours;
+        public readonly int Minutes;
+        public readonly int Seconds;
+        public readonly long Steps;
+        public readonly long Distance;
+        public readonly decimal HeartRate;
+        public readonly decimal HeartRateLow;
+        public readonly decimal HeartRateHigh;
+        public readonly decimal Temperature;
+        public readonly double Latitude;
+        public readonly double Longitude;
 
         public PanicString(TimeSpan timeElasped, long steps, long distance, decimal heartRate, decimal heartRateLow, decimal heartRateHigh, 
             decimal temperature, double latitude, double longitude)
         {
-            _hours = timeElasped.Hours;
-            _minutes = timeElasped.Minutes;
-            _seconds = timeElasped.Seconds;
-            _steps = steps;
-            _distance = distance;
-            _heartRate = heartRate;
-            _heartRateLow = heartRateLow;
-            _heartRateHigh = heartRateHigh;
-            _temperature = temperature;
-            _latitude = latitude;
-            _longitude = longitude;
+            Hours = timeElasped.Hours;
+            Minutes = timeElasped.Minutes;
+            Seconds = timeElasped.Seconds;
+            Steps = steps;
+            Distance = distance;
+            HeartRate = heartRate;
+            HeartRateLow = heartRateLow;
+            HeartRateHigh = heartRateHigh;
+            Temperature = temperature;
+            Latitude = latitude;
+            Longitude = longitude;
         }
 
         public string ToJsonString(bool panic)
         {
-            _panic = panic;
+            Panic = panic;
             return JsonConvert.SerializeObject(this);
         }
     }
