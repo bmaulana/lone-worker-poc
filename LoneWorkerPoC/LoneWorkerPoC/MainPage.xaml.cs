@@ -286,7 +286,25 @@ namespace LoneWorkerPoC
 
         private void ComboBox_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
+            if (SourceBox.SelectedItem.ToString() == "Profile")
+            {
+                Frame.Navigate(typeof(Profile));
+            }
+            else if (SourceBox.SelectedItem.ToString() == "Dashboard)")
+            {
+                Frame.Navigate(typeof(MainPage));
+            }
+            else if (SourceBox.SelectedItem.ToString() == "Notifications")
+            {
+                Frame.Navigate(typeof(Notifications));
+            }
 
         }
+
+        private void Show_screen(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+
+        }
+
     }
 }

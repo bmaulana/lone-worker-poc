@@ -91,12 +91,14 @@
             <Button Content="PANIC" Height="22" HorizontalAlignment="center" Margin="0,0,0,0" x:Name="PanicButton" Width="160" Background="#FFE00F0F" FontSize="21.333" Click="PanicClick"/>
 
         </StackPanel>
-        <ComboBox Width="145" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="" BorderThickness="0" Margin="214.333,0,19,467" Foreground="{x:Null}" Grid.ColumnSpan="2" Grid.Column="1">
+        <ComboBox x:Name="SourceBox" Grid.Row="0"
+              VerticalAlignment="Top"
+              DisplayMemberPath="Label" Width="145" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="" BorderThickness="0" Margin="214.333,0,19,467" Foreground="{x:Null}" Grid.ColumnSpan="2" Grid.Column="1">
             <ComboBox.Background>
                 <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>
 
             </ComboBox.Background>
-            <ComboBoxItem Content="Profile" Background="#FFDE2A2A"/>
+            <ComboBoxItem Content="Profile" Background="#FFDE2A2A" Tapped="Show_screen" />
             <ComboBoxItem Content="Notifications">
                 <ComboBoxItem.Background>
                     <SolidColorBrush Color="{StaticResource Color2}"/>
@@ -111,6 +113,7 @@
                 </ComboBoxItem.Background>
             </ComboBoxItem>
         </ComboBox>
+
 
     </Grid>
 </Page>
