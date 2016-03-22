@@ -106,3 +106,5 @@ D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\ProfilePage.xaml
 D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\ProfilePage.xbf
 D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Login.xbf
 D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\ProfilePage.xbf
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Newtonsoft.Json.dll
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\Newtonsoft.Json.xml

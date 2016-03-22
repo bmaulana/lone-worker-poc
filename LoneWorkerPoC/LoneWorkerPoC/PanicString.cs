@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace LoneWorkerPoC
 {
     public class PanicString
     {
-        private TimeSpan _timeElasped;
+        private bool _panic;
+        private int _hours;
+        private int _minutes;
+        private int _seconds;
         private long _steps;
         private long _distance;
         private decimal _heartRate;
@@ -21,7 +21,9 @@ namespace LoneWorkerPoC
         public PanicString(TimeSpan timeElasped, long steps, long distance, decimal heartRate, decimal heartRateLow, decimal heartRateHigh, 
             decimal temperature, double latitude, double longitude)
         {
-            _timeElasped = timeElasped;
+            _hours = timeElasped.Hours;
+            _minutes = timeElasped.Minutes;
+            _seconds = timeElasped.Seconds;
             _steps = steps;
             _distance = distance;
             _heartRate = heartRate;
@@ -32,10 +34,10 @@ namespace LoneWorkerPoC
             _longitude = longitude;
         }
 
-        public string GetJsonString(bool panic)
+        public string ToJsonString(bool panic)
         {
-            //TODO
-            return null;
+            _panic = panic;
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

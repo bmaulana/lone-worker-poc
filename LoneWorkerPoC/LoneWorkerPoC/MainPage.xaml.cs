@@ -9,9 +9,6 @@ namespace LoneWorkerPoC
 {
     /// <summary>
     /// The main page of the LoneWorkerPoC app.
-    /// TODO: Automate refreshing sensors, optimise sensor reading speed (esp. location), 
-    /// TODO: Panic button functionality (return JSON string based on current sensor values),
-    /// TODO: Automate sending notifs to Band when message from web DB is received.
     /// </summary>
     public sealed partial class MainPage
     {
@@ -57,6 +54,8 @@ namespace LoneWorkerPoC
 
         private async void NotifClick(object sender, RoutedEventArgs e)
         {
+            // TODO: Automate sending notifs to Band when message from web DB is received.
+            // TODO: Move notifications to separate page
             await _bandManager.SendNotification(NotifOutput, TitleInput.Text, BodyInput.Text);
         }
 
@@ -103,6 +102,7 @@ namespace LoneWorkerPoC
                 await OneShotLocation();
 
                 BandOutput.Text = "Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds + " s"; //TODO remove after 1 min or so
+                Debug.WriteLine("Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds + " s");
             }
             else
             {
@@ -160,22 +160,25 @@ namespace LoneWorkerPoC
             UpdateTime();
 
             BandOutput.Text = "Refresh time: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds + " s"; //TODO remove after 1 min or so
+            Debug.WriteLine("Refresh time: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds + " s");
         }
 
         private void CheckInClick(object sender, RoutedEventArgs e)
         {
             var panic = new PanicString(_initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh,
                 _temperature, _latitude, _longitude);
-            var json = panic.GetJsonString(false);
-            //TODO implement sending JSON string to HQ (test using popup message?)
+            var json = panic.ToJsonString(false);
+            Debug.WriteLine(json); // test code
+            // TODO implement sending JSON string to HQ
         }
 
         private void PanicClick(object sender, RoutedEventArgs e)
         {
             var panic = new PanicString(_initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh, 
                 _temperature, _latitude, _longitude);
-            var json = panic.GetJsonString(true);
-            //TODO implement sending JSON string to HQ (test using popup message?)
+            var json = panic.ToJsonString(true);
+            Debug.WriteLine(json); // test code
+            // TODO implement sending JSON string to HQ
         }
 
         private void UpdateTime()
