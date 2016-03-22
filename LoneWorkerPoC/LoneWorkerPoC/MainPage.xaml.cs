@@ -56,15 +56,6 @@ namespace LoneWorkerPoC
             // this event is handled for you.
         }
 
-        private async void NotifClick(object sender, RoutedEventArgs e)
-        {
-            // TODO: Automate sending notifs to Band when message from web DB is received.
-            // TODO: Move notifications to separate page
-            await BandConnect(); //or if(!_started) return;
-            await _bandManager.SendNotification(BandOutput, TitleInput.Text, BodyInput.Text);
-            InitClearTimer();
-        }
-
         private async void ToggleClick(object sender, RoutedEventArgs e)
         {
             await BandConnect();

@@ -79,12 +79,7 @@
 
             <TextBlock x:Name="BandOutput" Margin="0,0,0,0" FontSize="16"/>
 
-            <Button Content="Send notification to Band" Margin="0,20,0,0" Click="NotifClick"/>
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBox x:Name="TitleInput" Width="160" Margin="0,9,20,0" Height="1" HorizontalAlignment="Left" Text="" PlaceholderText="Title"/>
-                <TextBox x:Name="BodyInput" Width="160" Height="1" HorizontalAlignment="Left" Text="" PlaceholderText="Body"/>
-            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,0"/>
 
             <Button Content="PANIC" Height="22" HorizontalAlignment="center" Margin="0,10,0,0" x:Name="PanicButton" Width="160" Background="#FFE00F0F" FontSize="21.333" Click="PanicClick"/>
 

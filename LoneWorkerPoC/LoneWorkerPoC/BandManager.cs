@@ -244,6 +244,7 @@ namespace LoneWorkerPoC
 
         public async Task SendNotification(TextBlock output, string title, string message)
         {
+            if (_started) return;
             output.Text = "Sending...";
 
             try
