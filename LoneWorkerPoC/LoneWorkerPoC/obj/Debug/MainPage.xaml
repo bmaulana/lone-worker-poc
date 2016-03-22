@@ -89,7 +89,7 @@
             <Button x:ConnectionId='3' Content="PANIC" Height="22" HorizontalAlignment="center" Margin="0,10,0,0" x:Name="PanicButton" Width="160" Background="#FFE00F0F" FontSize="21.333"                   />
 
         </StackPanel>
-        <ComboBox x:ConnectionId='1' Width="145"                                              PlaceholderText="" BorderThickness="0" Margin="214.333,0,19,467" Foreground="{x:Null}" Grid.ColumnSpan="2" Grid.Column="1">
+        <ComboBox x:ConnectionId='1' Width="145" Name="SourceBox"                                              PlaceholderText="" BorderThickness="0" Margin="214.333,0,19,467" Foreground="{x:Null}" Grid.ColumnSpan="2" Grid.Column="1">
             <ComboBox.Background>
                 <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>
 

@@ -149,3 +149,7 @@ C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWo
 C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\ProjectArchitectures.txt
 C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Profile.g.i.cs
 C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\Profile.g.cs
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\NotificationsPage.g.i.cs
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\NotificationsPage.g.cs
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\NotificationsPage.xaml
+C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\NotificationsPage.xbf

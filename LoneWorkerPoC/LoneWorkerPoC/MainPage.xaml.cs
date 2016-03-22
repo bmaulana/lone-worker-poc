@@ -241,7 +241,7 @@ namespace LoneWorkerPoC
 
         private void CheckInClick(object sender, RoutedEventArgs e)
         {
-            if(!_started) return;
+            if (!_started) return;
             var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh,
                 _temperature, _latitude, _longitude);
             var json = panic.ToJsonString(false);
@@ -251,8 +251,8 @@ namespace LoneWorkerPoC
 
         private void PanicClick(object sender, RoutedEventArgs e)
         {
-            if(!_started) return;
-            var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh, 
+            if (!_started) return;
+            var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh,
                 _temperature, _latitude, _longitude);
             var json = panic.ToJsonString(true);
             Debug.WriteLine(json); // test code
@@ -268,7 +268,7 @@ namespace LoneWorkerPoC
         {
             //TODO improve time, use newer non deprecated API, ask for consent
 
-            var geolocator = new Geolocator {DesiredAccuracyInMeters = 50};
+            var geolocator = new Geolocator { DesiredAccuracyInMeters = 50 };
 
             LatOutput.Text = "Refreshing ...";
             LongOutput.Text = "Refreshing ...";
@@ -300,7 +300,7 @@ namespace LoneWorkerPoC
             }
             catch (Exception ex)
             {
-                if ((uint) ex.HResult == 0x80004004)
+                if ((uint)ex.HResult == 0x80004004)
                 {
                     LatOutput.Text = "location is disabled in phone settings.";
                     LongOutput.Text = "location is disabled in phone settings.";
@@ -315,19 +315,28 @@ namespace LoneWorkerPoC
 
         private void ComboBox_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
-            
-           if (SourceBox.SelectedItem.ToString() == "Profile")
-              {
-                 Frame.Navigate(typeof(Profile));
-              }
-           else if (SourceBox.SelectedItem.ToString() == "Dashboard)")
-           {
-                 Frame.Navigate(typeof(MainPage));
-           }
-           else if (SourceBox.SelectedItem.ToString() == "Notifications")
-           {
-                 Frame.Navigate(typeof(NotificationsPage));
-                
-           }
+
+            if (SourceBox.SelectedItem.ToString() == "Profile")
+            {
+                Frame.Navigate(typeof(Profile));
+            }
+            else if (SourceBox.SelectedItem.ToString() == "Dashboard)")
+            {
+                Frame.Navigate(typeof(MainPage));
+            }
+            else if (SourceBox.SelectedItem.ToString() == "Notifications")
+            {
+                Frame.Navigate(typeof(NotificationsPage));
+
+            }
+        }
+
+        private void NavigateToProfile(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+
+            Frame.Navigate(typeof(Profile));
+        }
     }
+
 }
+
