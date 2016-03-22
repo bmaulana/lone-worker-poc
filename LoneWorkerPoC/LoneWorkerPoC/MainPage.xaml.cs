@@ -318,7 +318,7 @@ namespace LoneWorkerPoC
 
             if (SourceBox.SelectedItem.ToString() == "Profile")
             {
-                Frame.Navigate(typeof(Profile));
+                Frame.Navigate(typeof(ProfilePage));
             }
             else if (SourceBox.SelectedItem.ToString() == "Dashboard)")
             {
@@ -334,7 +334,7 @@ namespace LoneWorkerPoC
         private void NavigateToProfile(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
 
-            Frame.Navigate(typeof(Profile));
+            Frame.Navigate(typeof(ProfilePage));
         }
     }
 
