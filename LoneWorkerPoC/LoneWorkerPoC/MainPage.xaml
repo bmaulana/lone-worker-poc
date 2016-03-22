@@ -73,8 +73,8 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                <Button Content="Refresh" Margin="0,0,10,0" Click="RefreshClick"/>
-                <Button Content="Check In" Margin="10,0,0,0" Click="CheckInClick"/>
+                <Button Content="Check In" Margin="0,0,0,0" Click="CheckInClick"/>
+                <Button Content="Force Refresh" Margin="20,0,0,0" Click="RefreshClick"/>
             </StackPanel>
 
             <TextBlock x:Name="BandOutput" Margin="0,0,0,0" FontSize="16"/>
@@ -86,19 +86,15 @@
                 <TextBox x:Name="BodyInput" Width="160" Height="1" HorizontalAlignment="Left" Text="" PlaceholderText="Body"/>
             </StackPanel>
 
-            <TextBlock x:Name="NotifOutput" Margin="0,0,0,0" FontSize="16"/>
-
-            <Button Content="PANIC" Height="22" HorizontalAlignment="center" Margin="0,0,0,0" x:Name="PanicButton" Width="160" Background="#FFE00F0F" FontSize="21.333" Click="PanicClick"/>
+            <Button Content="PANIC" Height="22" HorizontalAlignment="center" Margin="0,10,0,0" x:Name="PanicButton" Width="160" Background="#FFE00F0F" FontSize="21.333" Click="PanicClick"/>
 
         </StackPanel>
-        <ComboBox x:Name="SourceBox" Grid.Row="0"
-              VerticalAlignment="Top"
-              DisplayMemberPath="Label" Width="145" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="" BorderThickness="0" Margin="214.333,0,19,467" Foreground="{x:Null}" Grid.ColumnSpan="2" Grid.Column="1">
+        <ComboBox Width="145" Name="SourceBox" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="" BorderThickness="0" Margin="214.333,0,19,467" Foreground="{x:Null}" Grid.ColumnSpan="2" Grid.Column="1">
             <ComboBox.Background>
                 <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>
 
             </ComboBox.Background>
-            <ComboBoxItem Content="Profile" Background="#FFDE2A2A" Tapped="Show_screen" />
+            <ComboBoxItem Content="Profile" Background="#FFDE2A2A"/>
             <ComboBoxItem Content="Notifications">
                 <ComboBoxItem.Background>
                     <SolidColorBrush Color="{StaticResource Color2}"/>
@@ -113,7 +109,6 @@
                 </ComboBoxItem.Background>
             </ComboBoxItem>
         </ComboBox>
-
 
     </Grid>
 </Page>

@@ -5,6 +5,7 @@
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="Background" />
       <RootProperty Name="Content" />
+      <RootProperty Name="Resources" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.Tools.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="Windows.UI.Xaml.Controls.Grid">
@@ -14,6 +15,8 @@
       <RootProperty Name="ColumnDefinitions" />
       <RootMethod Name="GetColumn" />
       <RootMethod Name="SetColumn" />
+      <RootMethod Name="GetColumnSpan" />
+      <RootMethod Name="SetColumnSpan" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
       <RootProperty Name="Orientation" />
@@ -67,6 +70,7 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Documents.LineBreak" />
     <RootType FullName="LoneWorkerPoC.Login" />
+    <RootType FullName="Windows.UI.Color" />
     <RootType FullName="Windows.UI.Xaml.Media.LinearGradientBrush">
       <RootProperty Name="EndPoint" />
       <RootProperty Name="StartPoint" />
@@ -80,13 +84,29 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ComboBox">
       <RootProperty Name="Width" />
+      <RootProperty Name="PlaceholderText" />
+      <RootProperty Name="BorderThickness" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="Foreground" />
+      <RootProperty Name="Background" />
       <RootProperty Name="Items" />
       <RootEvent Name="SelectionChanged" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.ComboBoxItem">
-      <RootProperty Name="IsSelected" />
-      <RootProperty Name="Content" />
+    <RootType FullName="Microsoft.Xaml.Tools.DirectUI.ProxyTypes.NullExtension" />
+    <RootType FullName="Windows.UI.Xaml.Media.ImageBrush">
+      <RootProperty Name="ImageSource" />
+      <RootProperty Name="Stretch" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ComboBoxItem">
+      <RootProperty Name="Content" />
+      <RootProperty Name="Background" />
+      <RootProperty Name="IsSelected" />
+      <RootProperty Name="Resources" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">
+      <RootProperty Name="Color" />
+    </RootType>
+    <RootType FullName="Microsoft.Xaml.Tools.DirectUI.ProxyTypes.StaticResourceExtension" />
     <RootType FullName="LoneWorkerPoC.MainPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.Image">
       <RootProperty Name="Height" />

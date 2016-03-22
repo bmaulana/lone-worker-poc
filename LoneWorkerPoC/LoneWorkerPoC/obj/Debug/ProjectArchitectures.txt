@@ -1,1 +1,1 @@
-C:\Users\Jackys\Source\Repos\LoneWorkerPoC\lone-worker-poc2\LoneWorkerPoC\LoneWorkerPoC\LoneWorkerPoC.csproj;neutral
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\LoneWorkerPoC.csproj;neutral
