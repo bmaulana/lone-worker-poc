@@ -1,6 +1,10 @@
 <XamlCompilerSaveState>
   <ReferenceAssemblyList>
     <LocalAssembly PathName="c:\users\jackys\documents\visual studio 2015\projects\loneworkerpoc\loneworkerpoc\obj\debug\intermediatexaml\loneworkerpoc.exe" HashGuid="35e71094-87d6-2e41-a220-fedd8101bfa2" />
-    <ReferenceAssembly PathName="c:\users\jackys\source\repos\loneworkerpoc\lone-worker-poc2\loneworkerpoc\loneworkerpoc\bin\debug\google.protobuf.dll" HashGuid="6215d75d-636e-fb4a-abba-f62392374bae" />
+    <ReferenceAssembly PathName="d:\github\lone-worker-poc\loneworkerpoc\packages\microsoft.band.1.3.20307\lib\wpa81\google.protobuf.dll" HashGuid="6215d75d-636e-fb4a-abba-f62392374bae" />
+    <ReferenceAssembly PathName="d:\github\lone-worker-poc\loneworkerpoc\packages\microsoft.band.1.3.20307\lib\wpa81\microsoft.band.dll" HashGuid="32108fcd-33ed-32b3-91ba-ce1ef5314b3e" />
+    <ReferenceAssembly PathName="d:\github\lone-worker-poc\loneworkerpoc\packages\microsoft.band.1.3.20307\lib\wpa81\microsoft.band.phone.dll" HashGuid="696e97cc-94cd-b3a8-4710-47a68444da59" />
+    <ReferenceAssembly PathName="d:\github\lone-worker-poc\loneworkerpoc\packages\microsoft.band.1.3.20307\lib\wpa81\microsoft.band.store.dll" HashGuid="73329d9a-f835-a791-dc1c-ae711b0ff778" />
+    <ReferenceAssembly PathName="d:\github\lone-worker-poc\loneworkerpoc\packages\newtonsoft.json.8.0.3\lib\portable-net45+wp80+win8+wpa81+dnxcore50\newtonsoft.json.dll" HashGuid="74af0f9d-4f96-68dd-0977-2bb867adf196" />
   </ReferenceAssemblyList>
 </XamlCompilerSaveState>
