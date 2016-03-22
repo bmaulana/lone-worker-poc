@@ -15,8 +15,8 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="30,70,68,10" Width="342" Height="157" >
                 <StackPanel Orientation="Horizontal" Margin="0,0,-0.333,10" HorizontalAlignment="Right" Height="56" Width="316"  >
-                    <TextBlock Text="Email Adress" Margin="0,10,10,14.833" Foreground="White" FontSize="25" Width="138"  />
-                    <TextBox x:Name="id"  Height="20" Margin="13,5,0,0" Width="132"/>
+                    <TextBlock Text="Email Adress" Margin="0,10,5,10" Foreground="White" FontSize="25" Width="138"  />
+                    <TextBox x:Name="id"  Height="20" Margin="13,5,0,0" Width="141"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,-0.333,10" HorizontalAlignment="Right" Height="56" Width="316"  >
                     <TextBlock Text=" Password" Margin="0,10,10,14.833" Foreground="White" FontSize="25" Width="132"  />
