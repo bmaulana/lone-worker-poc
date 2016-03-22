@@ -13,6 +13,7 @@ namespace LoneWorkerPoC
     public sealed partial class MainPage
     {
         private readonly BandManager _bandManager;
+        private DispatcherTimer _timer;
         private bool _started;
         private bool _connected;
         private long _initSteps;
@@ -120,12 +121,23 @@ namespace LoneWorkerPoC
 
             await OneShotLocation();
 
-            BandOutput.Text = "Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds + " s"; //TODO remove after 1 min or so
+            _timer = new DispatcherTimer { Interval = new TimeSpan(0, 1, 0) }; // refresh every 1 min
+            _timer.Tick += TimerOnTick;
+            _timer.Start();
+
+            BandOutput.Text = "Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds + " s"; // TODO remove after 1 min or so
+        }
+
+        private async void TimerOnTick(object sender, object o)
+        {
+            await PullSensors();
         }
 
         private void EndWork()
         {
-            //TODO save end of work data (and send it to DB/web dashboard?)
+            // TODO save end of work data (and send it to DB/web dashboard?)
+
+            _timer.Stop();
 
             _initTime.Stop();
             _initTime.Reset();
@@ -151,23 +163,23 @@ namespace LoneWorkerPoC
             LatOutput.Text = "Not started";
             LongOutput.Text = "Not started";
 
-            BandOutput.Text = "Task ended"; //TODO remove after 1 min or so
+            BandOutput.Text = "Task ended"; // TODO remove after 1 min or so
         }
 
         private async void RefreshClick(object sender, RoutedEventArgs e)
         {
-            //TODO auto refresh (somehow) every minute or so (maybe make user settings page for sync frequency)
             await PullSensors();
         }
 
         private async Task PullSensors()
         {
-            //TODO check whether band is still connected and handle band not connected
+            // TODO check whether band is still connected and handle band not connected
 
             if (!_started) return;
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
+            BandOutput.Text = "Refreshing...";
 
             UpdateTime();
 
