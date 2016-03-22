@@ -262,9 +262,7 @@ namespace LoneWorkerPoC
                     // TODO add version check - if version is same skip this step, if changed remove old tile first
                     // await bandClient.TileManager.RemoveTileAsync(myTileId);
 
-                    // Create the Tile on the Band.
-                    // await bandClient.TileManager.AddTileAsync(myTile);
-
+                    // Check if tile exists in the band
                     var installedApps = await _bandClient.TileManager.GetTilesAsync();
                     bool[] exists = { false };
                     foreach (var tile in installedApps.Where(tile => !exists[0] && tile.TileId == myTileId))
@@ -272,7 +270,7 @@ namespace LoneWorkerPoC
                         exists[0] = true;
                     }
 
-
+                    // Create new tile if not
                     if (!exists[0])
                     {
                         await _bandClient.TileManager.AddTileAsync(myTile);
@@ -281,7 +279,7 @@ namespace LoneWorkerPoC
                     // Send a notification.
                     await _bandClient.NotificationManager.SendMessageAsync(myTileId, title, message, DateTimeOffset.Now, MessageFlags.ShowDialog);
 
-                    output.Text = "Message sent."; //TODO create task (don't await it?) to remove text after ~5 sec
+                    output.Text = "Message sent.";
             }
             catch (Exception ex)
             {

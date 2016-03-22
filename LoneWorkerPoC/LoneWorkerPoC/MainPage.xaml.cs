@@ -14,6 +14,7 @@ namespace LoneWorkerPoC
     {
         private readonly BandManager _bandManager;
         private DispatcherTimer _timer;
+        private DispatcherTimer _clearTimer;
         private bool _started;
         private bool _connected;
         private long _initSteps;
@@ -27,6 +28,8 @@ namespace LoneWorkerPoC
         private decimal _temperature;
         private double _latitude;
         private double _longitude;
+        private DateTime _lastStarted;
+        private DateTime _lastRefreshed;
 
         public MainPage()
         {
@@ -44,9 +47,9 @@ namespace LoneWorkerPoC
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // TODO: Prepare page for display here.
+            // Prepare page for display here.
 
-            // TODO: If your application contains multiple pages, ensure that you are
+            // If your application contains multiple pages, ensure that you are
             // handling the hardware Back button by registering for the
             // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
             // If you are using the NavigationHelper provided by some templates,
@@ -58,7 +61,8 @@ namespace LoneWorkerPoC
             // TODO: Automate sending notifs to Band when message from web DB is received.
             // TODO: Move notifications to separate page
             await BandConnect(); //or if(!_started) return;
-            await _bandManager.SendNotification(NotifOutput, TitleInput.Text, BodyInput.Text);
+            await _bandManager.SendNotification(BandOutput, TitleInput.Text, BodyInput.Text);
+            InitClearTimer();
         }
 
         private async void ToggleClick(object sender, RoutedEventArgs e)
@@ -88,6 +92,7 @@ namespace LoneWorkerPoC
                 {
                     BandOutput.Text = "Connected to Band.";
                     _connected = true;
+                    InitClearTimer();
                 }
                 else
                 {
@@ -99,6 +104,8 @@ namespace LoneWorkerPoC
 
         private async Task StartWork()
         {
+            _lastStarted = DateTime.Now;
+
             if (_initTime == null) { _initTime = new Stopwatch(); }
             _initTime.Start();
             TimeOutput.Text = "0h 0min 0sec";
@@ -125,7 +132,10 @@ namespace LoneWorkerPoC
             _timer.Tick += TimerOnTick;
             _timer.Start();
 
-            BandOutput.Text = "Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds + " s"; // TODO remove after 1 min or so
+            _lastRefreshed = DateTime.Now;
+
+            BandOutput.Text = "Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds + " s";
+            InitClearTimer();
         }
 
         private async void TimerOnTick(object sender, object o)
@@ -138,6 +148,7 @@ namespace LoneWorkerPoC
             // TODO save end of work data (and send it to DB/web dashboard?)
 
             _timer.Stop();
+            _timer = null;
 
             _initTime.Stop();
             _initTime.Reset();
@@ -163,7 +174,8 @@ namespace LoneWorkerPoC
             LatOutput.Text = "Not started";
             LongOutput.Text = "Not started";
 
-            BandOutput.Text = "Task ended"; // TODO remove after 1 min or so
+            BandOutput.Text = "Task ended";
+            InitClearTimer();
         }
 
         private async void RefreshClick(object sender, RoutedEventArgs e)
@@ -207,13 +219,30 @@ namespace LoneWorkerPoC
 
             UpdateTime();
 
-            BandOutput.Text = "Refresh time: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds + " s"; //TODO remove after 1 min or so
+            BandOutput.Text = "Refresh time: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds + " s";
+            InitClearTimer();
+        }
+
+        private void InitClearTimer()
+        {
+            _clearTimer?.Stop();
+            _clearTimer = null;
+            _clearTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 15) }; // wait 15 sec
+            _clearTimer.Tick += ClearTimerOnTick;
+            _clearTimer.Start();
+        }
+
+        private void ClearTimerOnTick(object sender, object e)
+        {
+            BandOutput.Text = "";
+            _clearTimer?.Stop();
+            _clearTimer = null;
         }
 
         private void CheckInClick(object sender, RoutedEventArgs e)
         {
             if(!_started) return;
-            var panic = new PanicString(_initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh,
+            var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh,
                 _temperature, _latitude, _longitude);
             var json = panic.ToJsonString(false);
             Debug.WriteLine(json); // test code
@@ -223,7 +252,7 @@ namespace LoneWorkerPoC
         private void PanicClick(object sender, RoutedEventArgs e)
         {
             if(!_started) return;
-            var panic = new PanicString(_initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh, 
+            var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh, 
                 _temperature, _latitude, _longitude);
             var json = panic.ToJsonString(true);
             Debug.WriteLine(json); // test code
