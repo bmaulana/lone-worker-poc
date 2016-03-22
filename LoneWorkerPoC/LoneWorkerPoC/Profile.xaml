@@ -24,7 +24,7 @@
          </StackPanel>
         <TextBox Margin="231,147,53,0" FontWeight="Bold" Text="Iacovos"  Background="Transparent" BorderBrush="Transparent"  FontSize="26" Height="46"/>
         <TextBox Margin="233,175,12,0" FontWeight="Bold" Text="Pantekhis"  Background="Transparent"  BorderThickness="0" FontSize="26" Height="39"/>
-        <StackPanel x:Name="Profile" Orientation="Vertical" Margin="20,282,20,155">
+        <StackPanel x:Name="ProfControl" Orientation="Vertical" Margin="20,282,20,155">
             <StackPanel x:Name="Name" Orientation="Horizontal" Margin="0,0,0,0">
                 <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Name"  Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
                 <TextBlock x:Name="NameInput"  Text="N/A" Margin="20,0,0,0" FontSize="16"/>
