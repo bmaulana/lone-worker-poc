@@ -8,6 +8,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <Color x:Key="Color1">#FFAE4343</Color>
+        <Color x:Key="Color2">#FFDE2A2A</Color>
     </Page.Resources>
 
     <Grid Margin="0,0,0,0">
@@ -22,35 +23,10 @@
             <ColumnDefinition Width="358*"/>
             <ColumnDefinition Width="19*"/>
         </Grid.ColumnDefinitions>
-
         <StackPanel Margin="0,0,0,0" Grid.Column="1">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Button x:Name="ToggleButton" Content="Start work" Margin="0,0,120,0" Click="ToggleClick" Width="105"/>
-                <ComboBox Width="160" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="" BorderThickness="0" Margin="0" Foreground="{x:Null}">
-                    <ComboBox.Background>
-                        <ImageBrush Stretch="None" ImageSource="Assets/threeline.png"/>
 
-                    </ComboBox.Background>
-
-                    <ComboBoxItem IsSelected="True" Content="Dashboard">
-                        <ComboBoxItem.Resources>
-                            <Color x:Key="MainColor">#FFAE4343</Color>
-                        </ComboBoxItem.Resources>
-                        <ComboBoxItem.Background>
-                            <SolidColorBrush Color="{StaticResource MainColor}"/>
-                        </ComboBoxItem.Background>
-                    </ComboBoxItem>
-                    <ComboBoxItem Content="Profile">
-                        <ComboBoxItem.Background>
-                            <SolidColorBrush Color="{StaticResource Color1}"/>
-                        </ComboBoxItem.Background>
-                    </ComboBoxItem>
-                    <ComboBoxItem Content="Notifications">
-                        <ComboBoxItem.Background>
-                            <SolidColorBrush Color="{StaticResource Color1}"/>
-                        </ComboBoxItem.Background>
-                    </ComboBoxItem>
-                </ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Time Elasped" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
@@ -115,6 +91,26 @@
             <Button Content="PANIC" Height="22" HorizontalAlignment="center" Margin="0,0,0,0" x:Name="PanicButton" Width="160" Background="#FFE00F0F" FontSize="21.333" Click="PanicClick"/>
 
         </StackPanel>
+        <ComboBox Width="145" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="" BorderThickness="0" Margin="214.333,0,19,467" Foreground="{x:Null}" Grid.ColumnSpan="2" Grid.Column="1">
+            <ComboBox.Background>
+                <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>
+
+            </ComboBox.Background>
+            <ComboBoxItem Content="Profile" Background="#FFDE2A2A"/>
+            <ComboBoxItem Content="Notifications">
+                <ComboBoxItem.Background>
+                    <SolidColorBrush Color="{StaticResource Color2}"/>
+                </ComboBoxItem.Background>
+            </ComboBoxItem>
+            <ComboBoxItem IsSelected="True" Content="Dashboard">
+                <ComboBoxItem.Resources>
+                    <Color x:Key="MainColor">#FFAE4343</Color>
+                </ComboBoxItem.Resources>
+                <ComboBoxItem.Background>
+                    <SolidColorBrush Color="{StaticResource Color2}"/>
+                </ComboBoxItem.Background>
+            </ComboBoxItem>
+        </ComboBox>
 
     </Grid>
 </Page>
