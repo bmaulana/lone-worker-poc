@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -72,11 +73,14 @@ namespace LoneWorkerPoC
             // TODO: Automate sending notifs to Band when message from web DB is received.
             // TODO: Not working when Band already connected in MainPage, needs fix. (shared BandManager across all pages?) 
 
-            var bandManager = new BandManager();
-            if (!await bandManager.ConnectTask())
+            var bandManager = MainPage.BandManager;
+            if (!bandManager.IsConnected())
             {
-                BandOutput.Text = "Band not connected.";
-                return;
+                if (!await bandManager.ConnectTask())
+                {
+                    BandOutput.Text = "Band not connected.";
+                    return;
+                }
             }
             await bandManager.SendNotification(BandOutput, TitleInput.Text, BodyInput.Text);
             InitClearTimer();
@@ -84,7 +88,10 @@ namespace LoneWorkerPoC
 
         private void HqNotifClick(object sender, RoutedEventArgs e)
         {
-            //TODO
+            var notifString = new NotifString(TitleInput2.Text, BodyInput2.Text);
+            var json = notifString.ToJsonString();
+            Debug.WriteLine(json);
+            // TODO send JSON to DB
         }
 
         private void InitClearTimer()
