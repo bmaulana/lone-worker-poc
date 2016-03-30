@@ -309,24 +309,6 @@ namespace LoneWorkerPoC
             }
         }
 
-        private void ComboBox_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
-        {
-            if (SourceBox?.SelectedItem == null) return;
-            if (SourceBox.SelectedItem.ToString() == "Profile")
-            {
-                Frame.Navigate(typeof(ProfilePage));
-            }
-            else if (SourceBox.SelectedItem.ToString() == "Dashboard)")
-            {
-                Frame.Navigate(typeof(MainPage));
-            }
-            else if (SourceBox.SelectedItem.ToString() == "Notifications")
-            {
-                Frame.Navigate(typeof(NotificationsPage));
-
-            }
-        }
-
         private void NavigateToProfile(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
 

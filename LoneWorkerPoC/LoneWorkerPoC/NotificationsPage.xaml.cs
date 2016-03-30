@@ -40,24 +40,6 @@ namespace LoneWorkerPoC
             Frame.Navigate(typeof(ProfilePage));
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (SourceBox2?.SelectedItem == null) return;
-            if (SourceBox2.SelectedItem.ToString() == "Profile")
-            {
-                Frame.Navigate(typeof(ProfilePage));
-            }
-            else if (SourceBox2.SelectedItem.ToString() == "Dashboard)")
-            {
-                Frame.Navigate(typeof(MainPage));
-            }
-            else if (SourceBox2.SelectedItem.ToString() == "Notifications")
-            {
-                Frame.Navigate(typeof(NotificationsPage));
-
-            }
-        }
-
         private async void BandNotifClick(object sender, RoutedEventArgs e)
         {
             // TODO: Automate sending notifs to Band when message from web DB is received.
