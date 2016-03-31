@@ -10,6 +10,7 @@ namespace LoneWorkerPoC
     {
         public bool Panic;
         public string DeviceId;
+        public string Sender;
         public DateTime LastRefreshed;
         public DateTime WorkStarted;
         public TimeSpan TimeElasped;
@@ -38,12 +39,19 @@ namespace LoneWorkerPoC
             Longitude = longitude;
             Longitude = longitude;
             DeviceId = GetDeviceId();
+            Sender = GetName();
         }
 
         public string ToJsonString(bool panic)
         {
             Panic = panic;
             return JsonConvert.SerializeObject(this);
+        }
+
+        private string GetName()
+        {
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            return localSettings.Values.ContainsKey("Name") ? (string) localSettings.Values["Name"] : "N/A";
         }
 
         private string GetDeviceId()

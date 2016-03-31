@@ -9,6 +9,7 @@ namespace LoneWorkerPoC
     public class NotifString
     {
         public string DeviceId;
+        public string Sender;
         public DateTime TimeStamp;
         public string Title;
         public string Message;
@@ -19,6 +20,7 @@ namespace LoneWorkerPoC
             Title = title;
             Message = message;
             DeviceId = GetDeviceId();
+            Sender = GetName();
         }
 
         public string ToJsonString()
@@ -26,6 +28,12 @@ namespace LoneWorkerPoC
             return JsonConvert.SerializeObject(this);
         }
         
+        private string GetName()
+        {
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            return localSettings.Values.ContainsKey("Name") ? (string)localSettings.Values["Name"] : "N/A";
+        }
+
         private string GetDeviceId()
         {
             var token = HardwareIdentification.GetPackageSpecificToken(null);
