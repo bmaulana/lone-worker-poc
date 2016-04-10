@@ -31,33 +31,33 @@
     			Source="Assets/SampleTileIconLarge.png"/>
         </StackPanel>
         <TextBox Margin="218,273,26.999,0" FontWeight="Bold" Text="Pantekhis"  Background="Transparent"  BorderThickness="0" FontSize="26" Height="39" Grid.ColumnSpan="2"/>
-        <StackPanel x:Name="ProfilePanel" Orientation="Vertical" Margin="20,351,19.999,86" Grid.ColumnSpan="2">
+        <StackPanel x:Name="ProfilePanel" Orientation="Vertical" Margin="20,351,20,66">
             <StackPanel x:Name="Name" Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBlock Text="Name" Margin="5,5,0,0"  FontWeight="Bold" FontSize="16"/>
-                <TextBox x:Name="NameInput" Margin="20,0,0,0" Text="N/A" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
+                <TextBlock Text="Name"  Margin="5,5,0,0"  FontWeight="Bold" FontSize="25"/>
+                <TextBox x:Name="NameInput" Margin="43,0,0,0" Text="N/A" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="25" Height="34"/>
             </StackPanel>
             <StackPanel x:Name="Email" Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBlock Text="Email" Margin="5,5,0,0"  FontWeight="Bold" FontSize="16"/>
-                <TextBox x:Name="EmailInput" Margin="20,0,0,0" Text="N/A" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
+                <TextBlock Text="Email" Margin="5,5,0,0"  FontWeight="Bold" FontSize="25"/>
+                <TextBox x:Name="EmailInput" Margin="50,0,0,0" Text="N/A" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="25" Height="34"/>
             </StackPanel>
             <StackPanel x:Name="Password" Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBlock Text="Password" Margin="5,5,0,0"  FontWeight="Bold" FontSize="16"/>
-                <TextBox x:Name="PasswordInput" Margin="20,0,0,0" Text="N/A" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
+                <TextBlock Text="Password" Margin="5,5,0,0"  FontWeight="Bold" FontSize="25"/>
+                <TextBox x:Name="PasswordInput" Margin="5,0,0,0" Text="N/A" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="25" Height="34"/>
             </StackPanel>
             <StackPanel x:Name="Height" Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBlock Text="Height" Margin="5,5,0,0"  FontWeight="Bold" FontSize="16"/>
-                <TextBox x:Name="HeightInput" Margin="20,0,0,0" Text="N/A" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
+                <TextBlock Text="Height" Margin="5,5,0,0"  FontWeight="Bold" FontSize="25"/>
+                <TextBox x:Name="HeightInput" Margin="37,0,0,0" Text="N/A" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="25" Height="34"/>
             </StackPanel>
             <StackPanel x:Name="Weight" Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBlock Text="Weight" Margin="5,5,0,0"  FontWeight="Bold" FontSize="16"/>
-                <TextBox x:Name="WeightInput" Margin="20,0,0,0" Text="N/A" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
+                <TextBlock Text="Weight" Margin="5,5,0,0"  FontWeight="Bold" FontSize="25"/>
+                <TextBox x:Name="WeightInput" Margin="33,0,0,0" Text="N/A" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="25" Height="34"/>
             </StackPanel>
             <StackPanel x:Name="DOB" Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBlock Text="Date of Birth" Margin="5,5,0,0"  FontWeight="Bold" FontSize="16"/>
-                <TextBox x:Name="DoBInput" Margin="20,0,0,0" Text="N/A" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
+                <TextBlock Text="DoB" Margin="5,5,0,0"  FontWeight="Bold" FontSize="25" Height="34"/>
+                <TextBox x:Name="DoBInput" Margin="70,0,0,0" Text="N/A" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="25" Height="34"/>
             </StackPanel>
         </StackPanel>
-        <Button Margin="199,544,0,10" Content="Save Profile"  Height="86" Width="191" Click="Button_Click" Grid.ColumnSpan="2" />
+        <Button Margin="199,559,0,-10" Content="Save Profile"  Height="86" Width="191" Click="Button_Click" />
         <TextBlock Margin="189,560,-0.001,59" x:Name="SaveOutput" FontSize="16" Grid.ColumnSpan="2"/>
 
     </Grid>
