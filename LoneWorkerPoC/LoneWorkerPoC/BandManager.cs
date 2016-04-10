@@ -31,6 +31,11 @@ namespace LoneWorkerPoC
             return true;
         }
 
+        public bool IsConnected()
+        {
+            return _started;
+        }
+
         public async Task<decimal> DisplaySkinTemperature(TextBlock output)
         {
             if (!_started) return -1;
@@ -244,6 +249,7 @@ namespace LoneWorkerPoC
 
         public async Task SendNotification(TextBlock output, string title, string message)
         {
+            if (!_started) return;
             output.Text = "Sending...";
 
             try

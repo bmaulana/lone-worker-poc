@@ -12,7 +12,7 @@ namespace LoneWorkerPoC
     /// </summary>
     public sealed partial class MainPage
     {
-        private readonly BandManager _bandManager;
+        public static readonly BandManager BandManager = new BandManager();
         private DispatcherTimer _timer;
         private DispatcherTimer _clearTimer;
         private bool _started;
@@ -36,8 +36,6 @@ namespace LoneWorkerPoC
             InitializeComponent();
 
             NavigationCacheMode = NavigationCacheMode.Required;
-
-            _bandManager = new BandManager();
         }
 
         /// <summary>
@@ -54,15 +52,6 @@ namespace LoneWorkerPoC
             // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
             // If you are using the NavigationHelper provided by some templates,
             // this event is handled for you.
-        }
-
-        private async void NotifClick(object sender, RoutedEventArgs e)
-        {
-            // TODO: Automate sending notifs to Band when message from web DB is received.
-            // TODO: Move notifications to separate page
-            await BandConnect(); //or if(!_started) return;
-            await _bandManager.SendNotification(BandOutput, TitleInput.Text, BodyInput.Text);
-            InitClearTimer();
         }
 
         private async void ToggleClick(object sender, RoutedEventArgs e)
@@ -87,8 +76,15 @@ namespace LoneWorkerPoC
         {
             if (!_connected)
             {
+                if (BandManager.IsConnected()) // band already connected from another page
+                {
+                    BandOutput.Text = "Connected to Band.";
+                    _connected = true;
+                    InitClearTimer();
+                    return;
+                }
                 BandOutput.Text = "Connecting to Band...";
-                if (await _bandManager.ConnectTask())
+                if (await BandManager.ConnectTask())
                 {
                     BandOutput.Text = "Connected to Band.";
                     _connected = true;
@@ -110,21 +106,21 @@ namespace LoneWorkerPoC
             _initTime.Start();
             TimeOutput.Text = "0h 0min 0sec";
 
-            _initSteps = await _bandManager.GetPedometer(StepsOutput);
+            _initSteps = await BandManager.GetPedometer(StepsOutput);
             _steps = 0;
             StepsOutput.Text = "0";
 
-            _initDistance = await _bandManager.GetDistance(DistanceOutput);
+            _initDistance = await BandManager.GetDistance(DistanceOutput);
             _distance = 0;
             DistanceOutput.Text = "0 m";
 
-            _heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
+            _heartRate = await BandManager.DisplayHeartRate(HeartRateOutput);
             _heartRateLow = _heartRate;
             HeartRateLow.Text = _heartRate.ToString();
             _heartRateHigh = _heartRate;
             HeartRateHigh.Text = _heartRate.ToString();
 
-            _temperature = await _bandManager.DisplaySkinTemperature(TempOutput);
+            _temperature = await BandManager.DisplaySkinTemperature(TempOutput);
 
             await OneShotLocation();
 
@@ -195,13 +191,13 @@ namespace LoneWorkerPoC
 
             UpdateTime();
 
-            var steps = await _bandManager.GetPedometer(StepsOutput) - _initSteps;
+            var steps = await BandManager.GetPedometer(StepsOutput) - _initSteps;
             StepsOutput.Text = steps.ToString();
 
-            var distance = await _bandManager.GetDistance(DistanceOutput) - _initDistance;
+            var distance = await BandManager.GetDistance(DistanceOutput) - _initDistance;
             DistanceOutput.Text = Convert.ToDecimal(distance) / 100 + " m";
 
-            _heartRate = await _bandManager.DisplayHeartRate(HeartRateOutput);
+            _heartRate = await BandManager.DisplayHeartRate(HeartRateOutput);
             if (_heartRate < _heartRateLow)
             {
                 HeartRateLow.Text = _heartRate.ToString();
@@ -213,7 +209,7 @@ namespace LoneWorkerPoC
                 _heartRateHigh = _heartRate;
             }
 
-            _temperature = await _bandManager.DisplaySkinTemperature(TempOutput);
+            _temperature = await BandManager.DisplaySkinTemperature(TempOutput);
 
             await OneShotLocation();
 
@@ -246,7 +242,7 @@ namespace LoneWorkerPoC
                 _temperature, _latitude, _longitude);
             var json = panic.ToJsonString(false);
             Debug.WriteLine(json); // test code
-            // TODO implement sending JSON string to HQ
+            // TODO implement sending JSON string to DB
         }
 
         private void PanicClick(object sender, RoutedEventArgs e)
@@ -256,7 +252,7 @@ namespace LoneWorkerPoC
                 _temperature, _latitude, _longitude);
             var json = panic.ToJsonString(true);
             Debug.WriteLine(json); // test code
-            // TODO implement sending JSON string to HQ
+            // TODO implement sending JSON string to DB
         }
 
         private void UpdateTime()
@@ -310,24 +306,6 @@ namespace LoneWorkerPoC
                     LatOutput.Text = "Something went wrong.";
                     LongOutput.Text = "Something went wrong.";
                 }
-            }
-        }
-
-        private void ComboBox_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
-        {
-
-            if (SourceBox.SelectedItem.ToString() == "Profile")
-            {
-                Frame.Navigate(typeof(ProfilePage));
-            }
-            else if (SourceBox.SelectedItem.ToString() == "Dashboard)")
-            {
-                Frame.Navigate(typeof(MainPage));
-            }
-            else if (SourceBox.SelectedItem.ToString() == "Notifications")
-            {
-                Frame.Navigate(typeof(NotificationsPage));
-
             }
         }
 

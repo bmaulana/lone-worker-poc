@@ -92,6 +92,7 @@
     <Compile Include="NotificationsPage.xaml.cs">
       <DependentUpon>NotificationsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NotifString.cs" />
     <Compile Include="PanicString.cs" />
     <Compile Include="ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
