@@ -28,7 +28,7 @@
         </StackPanel>
         <Rectangle Fill="RED" Margin="0,0,0,557" Height="80"/>
         <TextBox Text="Notifications" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="30"
-                 Margin="13,10,132,0" Height="53" TextChanged="TextBox_TextChanged" />
+                 Margin="13,10,183,0" Height="53" />
         <ComboBox Width="145" x:Name="SourceBox2" PlaceholderText="" BorderThickness="0" Margin="231,8,24,459" Foreground="{x:Null}">
             <ComboBox.Background>
                 <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>

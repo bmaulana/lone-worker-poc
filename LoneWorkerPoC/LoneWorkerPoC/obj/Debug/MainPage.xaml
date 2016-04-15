@@ -11,11 +11,10 @@
         <Color x:Key="Color2">#FFDE2A2A</Color>
     </Page.Resources>
 
-    <Grid Margin="0,0,0,0">
+    <Grid Margin="0,3,0,0">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FFAE4343"  />
-
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.ColumnDefinitions>
@@ -23,68 +22,80 @@
             <ColumnDefinition Width="358*"/>
             <ColumnDefinition Width="19*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Margin="0,0,0,0" Grid.Column="1">
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+        
+        <StackPanel Margin="0.333,85,19,0" Grid.Column="1" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" Margin="25,0,0,0">
                 <Button x:ConnectionId='6' x:Name="ToggleButton" Content="Start work" Margin="0,0,120,0"                     Width="105"/>
 
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Time Elasped" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
-                <TextBlock x:Name="TimeOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
+                <TextBox Margin="20,0,0,0"  Text="Time Elasped" FontFamily="Segoe" Grid.Column="1" 
+                         Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="18" Height="34"/>
+                <TextBlock x:Name="TimeOutput" Text="N/A" FontFamily="Segoe" FontWeight="Bold" Margin="50,0,0,0" FontSize="25"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBox Margin="50,0,0,0" FontFamily="Segoe" Text="Steps" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="18" Height="34"/>
+                <TextBox Margin="100,0,0,0" FontFamily="Segoe" Text="Distance" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="18" Height="34"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Steps" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
-                <TextBlock x:Name="StepsOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
+                <TextBlock x:Name="StepsOutput" Text="N/A" FontWeight="Bold" Margin="55,0,0,0" FontFamily="Segoe" FontSize="25"/>
+                <TextBlock x:Name="DistanceOutput" Text="N/A" FontWeight="Bold" Margin="130,0,0,0" FontFamily="Segoe" FontSize="25"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Distance" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
-                <TextBlock x:Name="DistanceOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+            <StackPanel Orientation="Vertical" Margin="0,10,0,0">
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                    <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Last Heart Rate" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
-                    <TextBlock x:Name="HeartRateOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
+                    <TextBox Margin="20,0,0,0" FontFamily="Segoe" Text="Last Heart Rate" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="18" Height="34"/>
+                    <TextBlock x:Name="HeartRateOutput" Text="N/A" Margin="60,0,0,0" FontWeight="Bold" FontFamily="Segoe" FontSize="25"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                    <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Low" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
-                    <TextBlock x:Name="HeartRateLow" Text="Not started" Margin="20,0,30,0" FontSize="16"/>
-                    <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="High" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
-                    <TextBlock x:Name="HeartRateHigh" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
+                    <TextBox Margin="55,0,0,0" FontFamily="Segoe" Text="Low" Background="Transparent" BorderBrush="White"
+                             BorderThickness="0" FontSize="18" Height="34"/>
+                    <TextBox Margin="110,0,0,0" FontFamily="Segoe" Text="High" Background="Transparent" BorderBrush="White" 
+                             BorderThickness="0" FontSize="18" Height="34"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock x:Name="HeartRateLow" Text="N/A" FontWeight="Bold" Margin="60,0,0,0" FontFamily="Segoe" FontSize="25"/>
+                    <TextBlock x:Name="HeartRateHigh" Text="N/A" FontWeight="Bold" Margin="125,0,0,0" FontFamily="Segoe" FontSize="25"/>
                 </StackPanel>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Skin Temperature" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
-                <TextBlock x:Name="TempOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBox  Margin="10,0,0,0" FontFamily="Segoe" Text="Skin Temperature" Background="Transparent" 
+                         BorderBrush="White" BorderThickness="0" FontSize="18"  Height="34"/>
+                <TextBlock x:Name="TempOutput" Text="N/A" Margin="50,0,0,0" FontWeight="Bold" FontFamily="Segoe" FontSize="25"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBox  Margin="45,0,0,0" FontFamily="Segoe" Text="Latitude" Background="Transparent" BorderBrush="White" BorderThickness="0"
+                         FontSize="18" Height="34"/>
+                <TextBlock x:Name="LatOutput" Text="N/A" Margin="90,0,0,0" FontWeight="Bold" FontFamily="Segoe" FontSize="25"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBox Margin="40,0,0,0" FontFamily="Sagoe" Text="Longitude" Background="Transparent" BorderBrush="White" BorderThickness="0" 
+                         FontSize="18" Height="34"/>
+                <TextBlock x:Name="LongOutput" Text="N/A" Margin="80,0,0,0" FontWeight="Bold" FontFamily="Segoe" FontSize="25"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Latitude" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
-                <TextBlock x:Name="LatOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBox Margin="0,0,0,0" FontWeight="Bold" Text="Longitude" Grid.Column="1" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="16" Height="34"/>
-                <TextBlock x:Name="LongOutput" Text="Not started" Margin="20,0,0,0" FontSize="16"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                <Button x:ConnectionId='4' Content="Check In" Margin="0,0,0,0"                     />
-                <Button x:ConnectionId='5' Content="Force Refresh" Margin="20,0,0,0"                     />
+                <Button x:ConnectionId='4' Content="Check In" Margin="30,0,0,0"                     />
+                <Button x:ConnectionId='5' Content="Force Refresh" Margin="55,0,0,0"                     />
             </StackPanel>
 
             <TextBlock x:Name="BandOutput" Margin="0,0,0,0" FontSize="16"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,0"/>
-
-            <Button x:ConnectionId='3' Content="PANIC" Height="22" HorizontalAlignment="center" Margin="0,10,0,0" x:Name="PanicButton" Width="160" Background="#FFE00F0F" FontSize="21.333"                   />
-
+            <Button x:ConnectionId='3' Content="PANIC" Height="22" HorizontalAlignment="center" Margin="0,0,0,0" x:Name="PanicButton" Width="160" Background="#FFE00F0F" FontSize="21.333"                   />
         </StackPanel>
-        <ComboBox Width="145" Name="SourceBox" PlaceholderText="" BorderThickness="0" Margin="214.333,0,19,467" Foreground="{x:Null}" Grid.ColumnSpan="2" Grid.Column="1">
+        
+        <Rectangle Fill="RED"  Grid.ColumnSpan="3" Margin="0,0,0,557" Height="80" />
+        <TextBox Text="Dashboard" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="30"
+                 Margin="12,16,154.833,0" Height="53" Grid.ColumnSpan="2" />
+
+        <ComboBox Width="145" Name="SourceBox" PlaceholderText="" BorderThickness="0" Margin="231,8,24,459" Foreground="{x:Null}" Grid.ColumnSpan="2" Grid.Column="1">
             <ComboBox.Background>
                 <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>
 

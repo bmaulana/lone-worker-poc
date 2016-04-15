@@ -148,29 +148,28 @@ namespace LoneWorkerPoC
 
             _initTime.Stop();
             _initTime.Reset();
-            TimeOutput.Text = "Not started";
+            TimeOutput.Text = "N/A";
 
             _initSteps = 0;
             _steps = 0;
-            StepsOutput.Text = "Not started";
+            StepsOutput.Text = "N/A";
 
             _initDistance = 0;
             _distance = 0;
-            DistanceOutput.Text = "Not started";
+            DistanceOutput.Text = "N/A";
 
             _heartRate = 0;
             _heartRateHigh = 0;
             _heartRateLow = 0;
-            HeartRateOutput.Text = "Not started";
-            HeartRateLow.Text = "Not started";
-            HeartRateHigh.Text = "Not started";
+            HeartRateOutput.Text = "N/A";
+            HeartRateLow.Text = "N/A";
+            HeartRateHigh.Text = "N/A";
 
+            TempOutput.Text = "N/A";
+            LatOutput.Text = "N/A";
+            LongOutput.Text = "N/A";
 
-            TempOutput.Text = "Not started";
-            LatOutput.Text = "Not started";
-            LongOutput.Text = "Not started";
-
-            BandOutput.Text = "Task ended";
+            BandOutput.Text = "Work ended";
             InitClearTimer();
         }
 
