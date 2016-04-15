@@ -237,7 +237,7 @@ namespace LoneWorkerPoC
         private void CheckInClick(object sender, RoutedEventArgs e)
         {
             if (!_started) return;
-            var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh,
+            var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps, _distance, _heartRate, _heartRateLow, _heartRateHigh,
                 _temperature, _latitude, _longitude);
             var json = panic.ToJsonString(false);
             Debug.WriteLine(json); // test code
@@ -247,7 +247,7 @@ namespace LoneWorkerPoC
         private void PanicClick(object sender, RoutedEventArgs e)
         {
             if (!_started) return;
-            var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh,
+            var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps, _distance, _heartRate, _heartRateLow, _heartRateHigh,
                 _temperature, _latitude, _longitude);
             var json = panic.ToJsonString(true);
             Debug.WriteLine(json); // test code
@@ -265,8 +265,8 @@ namespace LoneWorkerPoC
 
             var geolocator = new Geolocator { DesiredAccuracyInMeters = 50 };
 
-            LatOutput.Text = "Refreshing ...";
-            LongOutput.Text = "Refreshing ...";
+            LatOutput.Text = "Refreshing";
+            LongOutput.Text = "Refreshing";
 
             try
             {
@@ -277,20 +277,20 @@ namespace LoneWorkerPoC
 
                 if (_latitude >= 0)
                 {
-                    LatOutput.Text = _latitude + " N";
+                    LatOutput.Text = Math.Round(_latitude, 5) + " N";
                 }
                 else
                 {
-                    LatOutput.Text = -_latitude + " S";
+                    LatOutput.Text = Math.Round(-_latitude, 5) + " S";
                 }
 
                 if (_longitude >= 0)
                 {
-                    LongOutput.Text = _longitude + " E";
+                    LongOutput.Text = Math.Round(_longitude, 5) + " E";
                 }
                 else
                 {
-                    LongOutput.Text = -_longitude + " W";
+                    LongOutput.Text = Math.Round(-_longitude, 5) + " W";
                 }
             }
             catch (Exception ex)

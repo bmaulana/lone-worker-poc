@@ -29,14 +29,14 @@
 
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                <TextBox Margin="20,0,0,0"  Text="Time Elasped" FontFamily="Segoe" Grid.Column="1" 
+                <TextBox Margin="20,0,0,0" FontWeight="Bold" Text="Time Elasped" FontFamily="Segoe" Grid.Column="1" 
                          Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="18" Height="34"/>
                 <TextBlock x:Name="TimeOutput" Text="N/A" FontFamily="Segoe" FontWeight="Bold" Margin="50,0,0,0" FontSize="25"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                <TextBox Margin="50,0,0,0" FontFamily="Segoe" Text="Steps" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="18" Height="34"/>
-                <TextBox Margin="100,0,0,0" FontFamily="Segoe" Text="Distance" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="18" Height="34"/>
+                <TextBox Margin="50,0,0,0" FontFamily="Segoe" FontWeight="Bold" Text="Steps" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="18" Height="34"/>
+                <TextBox Margin="100,0,0,0" FontFamily="Segoe" FontWeight="Bold" Text="Distance" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="18" Height="34"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
@@ -46,14 +46,14 @@
 
             <StackPanel Orientation="Vertical" Margin="0,10,0,0">
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                    <TextBox Margin="20,0,0,0" FontFamily="Segoe" Text="Last Heart Rate" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="18" Height="34"/>
+                    <TextBox Margin="20,0,0,0" FontFamily="Segoe" FontWeight="Bold" Text="Last Heart Rate" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="18" Height="34"/>
                     <TextBlock x:Name="HeartRateOutput" Text="N/A" Margin="60,0,0,0" FontWeight="Bold" FontFamily="Segoe" FontSize="25"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                    <TextBox Margin="55,0,0,0" FontFamily="Segoe" Text="Low" Background="Transparent" BorderBrush="White"
+                    <TextBox Margin="55,0,0,0" FontFamily="Segoe" FontWeight="Bold" Text="Low" Background="Transparent" BorderBrush="White"
                              BorderThickness="0" FontSize="18" Height="34"/>
-                    <TextBox Margin="110,0,0,0" FontFamily="Segoe" Text="High" Background="Transparent" BorderBrush="White" 
+                    <TextBox Margin="110,0,0,0" FontFamily="Segoe" FontWeight="Bold" Text="High" Background="Transparent" BorderBrush="White" 
                              BorderThickness="0" FontSize="18" Height="34"/>
                 </StackPanel>
 
@@ -64,21 +64,21 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                <TextBox  Margin="10,0,0,0" FontFamily="Segoe" Text="Skin Temperature" Background="Transparent" 
+                <TextBox  Margin="10,0,0,0" FontFamily="Segoe" FontWeight="Bold" Text="Skin Temperature" Background="Transparent" 
                          BorderBrush="White" BorderThickness="0" FontSize="18"  Height="34"/>
-                <TextBlock x:Name="TempOutput" Text="N/A" Margin="50,0,0,0" FontWeight="Bold" FontFamily="Segoe" FontSize="25"/>
+                <TextBlock x:Name="TempOutput" Text="N/A" Margin="45,0,0,0" FontWeight="Bold" FontFamily="Segoe" FontSize="25"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                <TextBox  Margin="45,0,0,0" FontFamily="Segoe" Text="Latitude" Background="Transparent" BorderBrush="White" BorderThickness="0"
+                <TextBox  Margin="45,0,0,0" FontFamily="Segoe" FontWeight="Bold" Text="Latitude" Background="Transparent" BorderBrush="White" BorderThickness="0"
                          FontSize="18" Height="34"/>
-                <TextBlock x:Name="LatOutput" Text="N/A" Margin="90,0,0,0" FontWeight="Bold" FontFamily="Segoe" FontSize="25"/>
+                <TextBlock x:Name="LatOutput" FontWeight="Bold" Text="N/A" Margin="90,0,0,0" FontFamily="Segoe" FontSize="25"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                <TextBox Margin="40,0,0,0" FontFamily="Sagoe" Text="Longitude" Background="Transparent" BorderBrush="White" BorderThickness="0" 
+                <TextBox Margin="40,0,0,0" FontFamily="Sagoe" FontWeight="Bold" Text="Longitude" Background="Transparent" BorderBrush="White" BorderThickness="0" 
                          FontSize="18" Height="34"/>
-                <TextBlock x:Name="LongOutput" Text="N/A" Margin="80,0,0,0" FontWeight="Bold" FontFamily="Segoe" FontSize="25"/>
+                <TextBlock x:Name="LongOutput" FontWeight="Bold" Text="N/A" Margin="80,0,0,0" FontFamily="Segoe" FontSize="25"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
