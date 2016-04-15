@@ -158,3 +158,7 @@ D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\NotificationsPag
 D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\NotificationsPage.xaml
 D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\obj\Debug\NotificationsPage.xbf
 D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\NotificationsPage.xbf
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\System.Net.Http.Extensions.dll
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\System.Net.Http.Primitives.dll
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\System.Net.Http.Extensions.xml
+D:\GitHub\lone-worker-poc\LoneWorkerPoC\LoneWorkerPoC\bin\Debug\System.Net.Http.Primitives.xml

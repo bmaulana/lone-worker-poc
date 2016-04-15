@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.System.Profile;
@@ -46,6 +47,12 @@ namespace LoneWorkerPoC
         {
             Panic = panic;
             return JsonConvert.SerializeObject(this);
+        }
+
+        public List<KeyValuePair<string, string>> ToKeyValuePairs(bool panic)
+        {
+            Panic = panic;
+            throw new NotImplementedException();
         }
 
         private string GetName()

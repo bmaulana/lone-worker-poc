@@ -31,7 +31,7 @@
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <TextBox Margin="20,0,0,0" FontWeight="Bold" Text="Time Elasped" FontFamily="Segoe" Grid.Column="1" 
                          Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="18" Height="34"/>
-                <TextBlock x:Name="TimeOutput" Text="N/A" FontFamily="Segoe" FontWeight="Bold" Margin="50,0,0,0" FontSize="25"/>
+                <TextBlock x:Name="TimeOutput" Text="N/A" FontFamily="Segoe" FontWeight="Bold" Margin="75,0,0,0" FontSize="25"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
@@ -47,7 +47,7 @@
             <StackPanel Orientation="Vertical" Margin="0,10,0,0">
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                     <TextBox Margin="20,0,0,0" FontFamily="Segoe" FontWeight="Bold" Text="Last Heart Rate" Background="Transparent" BorderBrush="White" BorderThickness="0" FontSize="18" Height="34"/>
-                    <TextBlock x:Name="HeartRateOutput" Text="N/A" Margin="60,0,0,0" FontWeight="Bold" FontFamily="Segoe" FontSize="25"/>
+                    <TextBlock x:Name="HeartRateOutput" Text="N/A" Margin="55,0,0,0" FontWeight="Bold" FontFamily="Segoe" FontSize="25"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,0">

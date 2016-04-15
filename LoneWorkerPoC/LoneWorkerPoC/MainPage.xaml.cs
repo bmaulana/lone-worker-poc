@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 
@@ -104,7 +106,7 @@ namespace LoneWorkerPoC
 
             if (_initTime == null) { _initTime = new Stopwatch(); }
             _initTime.Start();
-            TimeOutput.Text = "0h 0min 0sec";
+            TimeOutput.Text = "0h 0m 0s";
 
             _initSteps = await BandManager.GetPedometer(StepsOutput);
             _steps = 0;
@@ -183,7 +185,7 @@ namespace LoneWorkerPoC
             // TODO check whether band is still connected and handle band not connected
 
             if (!_started) return;
-
+            
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             BandOutput.Text = "Refreshing...";
@@ -234,7 +236,7 @@ namespace LoneWorkerPoC
             _clearTimer = null;
         }
 
-        private void CheckInClick(object sender, RoutedEventArgs e)
+        private async void CheckInClick(object sender, RoutedEventArgs e)
         {
             if (!_started) return;
             var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps, _distance, _heartRate, _heartRateLow, _heartRateHigh,
@@ -242,6 +244,22 @@ namespace LoneWorkerPoC
             var json = panic.ToJsonString(false);
             Debug.WriteLine(json); // test code
             // TODO implement sending JSON string to DB
+            var values = new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>("api_key", "12345"),
+                        new KeyValuePair<string, string>("game_id", "123456")
+                    };
+            var url = "http://test.com";
+            HttpClientHandler handler = new HttpClientHandler();
+            var httpClient = new HttpClient(handler);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
+            request.Content = new FormUrlEncodedContent(values);
+            if (handler.SupportsTransferEncodingChunked())
+            {
+                request.Headers.TransferEncodingChunked = true;
+            }
+            HttpResponseMessage response = await httpClient.SendAsync(request);
+            Debug.WriteLine(response);
         }
 
         private void PanicClick(object sender, RoutedEventArgs e)
@@ -256,7 +274,7 @@ namespace LoneWorkerPoC
 
         private void UpdateTime()
         {
-            TimeOutput.Text = _initTime.Elapsed.Hours + "h " + _initTime.Elapsed.Minutes + "min " + _initTime.Elapsed.Seconds + "sec";
+            TimeOutput.Text = _initTime.Elapsed.Hours + "h " + _initTime.Elapsed.Minutes + "m " + _initTime.Elapsed.Seconds + "s";
         }
 
         private async Task OneShotLocation()
@@ -297,20 +315,19 @@ namespace LoneWorkerPoC
             {
                 if ((uint)ex.HResult == 0x80004004)
                 {
-                    LatOutput.Text = "location is disabled in phone settings.";
-                    LongOutput.Text = "location is disabled in phone settings.";
+                    LatOutput.Text = "Location disabled";
+                    LongOutput.Text = "Location disabled";
                 }
                 else
                 {
-                    LatOutput.Text = "Something went wrong.";
-                    LongOutput.Text = "Something went wrong.";
+                    LatOutput.Text = "Error";
+                    LongOutput.Text = "Error";
                 }
             }
         }
 
         private void NavigateToProfile(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-
             Frame.Navigate(typeof(ProfilePage));
         }
 
@@ -321,4 +338,3 @@ namespace LoneWorkerPoC
     }
 
 }
-
