@@ -265,7 +265,6 @@ namespace LoneWorkerPoC
                         new KeyValuePair<string, string>("api_key", "12345"),
                         new KeyValuePair<string, string>("game_id", "123456")
                     };*/
-            var url = "https://polar-thicket-50764.herokuapp.com/test";
 
             Debug.WriteLine(value);
 
