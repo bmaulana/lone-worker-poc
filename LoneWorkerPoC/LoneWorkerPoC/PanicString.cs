@@ -52,7 +52,24 @@ namespace LoneWorkerPoC
         public List<KeyValuePair<string, string>> ToKeyValuePairs(bool panic)
         {
             Panic = panic;
-            throw new NotImplementedException();
+            var values = new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>("Panic", panic.ToString()),
+                        new KeyValuePair<string, string>("DeviceId", DeviceId),
+                        new KeyValuePair<string, string>("Sender", Sender),
+                        new KeyValuePair<string, string>("LastRefreshed", LastRefreshed.ToString()),
+                        new KeyValuePair<string, string>("WorkStarted", WorkStarted.ToString()),
+                        new KeyValuePair<string, string>("TimeElasped", TimeElasped.ToString()),
+                        new KeyValuePair<string, string>("Steps", Steps.ToString()),
+                        new KeyValuePair<string, string>("Distance", Distance.ToString()),
+                        new KeyValuePair<string, string>("HeartRate", HeartRate.ToString()),
+                        new KeyValuePair<string, string>("HeartRateLow", HeartRateLow.ToString()),
+                        new KeyValuePair<string, string>("HeartRateHigh", HeartRateHigh.ToString()),
+                        new KeyValuePair<string, string>("SkinTemperature", SkinTemperature.ToString()),
+                        new KeyValuePair<string, string>("Latitude", Latitude.ToString()),
+                        new KeyValuePair<string, string>("Longitude", Longitude.ToString())
+                    };
+            return values;
         }
 
         private string GetName()

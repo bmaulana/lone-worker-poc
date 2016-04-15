@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using System.Diagnostics;
-using System.IO;
-using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 
@@ -244,10 +241,9 @@ namespace LoneWorkerPoC
             if (!_started) return;
             var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps, _distance, _heartRate, _heartRateLow, _heartRateHigh,
                 _temperature, _latitude, _longitude);
-            var json = panic.ToJsonString(false);
-            Debug.WriteLine(json); // test code
-            // TODO implement sending JSON string to DB
-            await SendPostRequest();
+            //var json = panic.ToJsonString(false);
+            //Debug.WriteLine(json); // test code
+            await SendPostRequest(panic.ToKeyValuePairs(false));
         }
 
         private async void PanicClick(object sender, RoutedEventArgs e)
@@ -255,25 +251,27 @@ namespace LoneWorkerPoC
             if (!_started) return;
             var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps, _distance, _heartRate, _heartRateLow, _heartRateHigh,
                 _temperature, _latitude, _longitude);
-            var json = panic.ToJsonString(true);
-            Debug.WriteLine(json); // test code
-            // TODO implement sending JSON string to DB
-            await SendPostRequest();
+            //var json = panic.ToJsonString(true);
+            //Debug.WriteLine(json); // test code
+            await SendPostRequest(panic.ToKeyValuePairs(true));
         }
 
 
-        private async Task SendPostRequest()
+        private async Task SendPostRequest(List<KeyValuePair<string, string>> value)
         {
-            var values = new List<KeyValuePair<string, string>>
+            // TODO
+            /*var values = new List<KeyValuePair<string, string>>
                     {
                         new KeyValuePair<string, string>("api_key", "12345"),
                         new KeyValuePair<string, string>("game_id", "123456")
-                    };
+                    };*/
             var url = "https://polar-thicket-50764.herokuapp.com/test";
+
+            Debug.WriteLine(value);
 
             var handler = new HttpClientHandler();
             var httpClient = new HttpClient(handler);
-            var request = new HttpRequestMessage(HttpMethod.Post, url) {Content = new FormUrlEncodedContent(values)};
+            var request = new HttpRequestMessage(HttpMethod.Post, url) {Content = new FormUrlEncodedContent(value)};
             if (handler.SupportsTransferEncodingChunked())
             {
                 request.Headers.TransferEncodingChunked = true;
