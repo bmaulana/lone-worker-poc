@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
@@ -43,7 +41,6 @@ namespace LoneWorkerPoC
         private async void BandNotifClick(object sender, RoutedEventArgs e)
         {
             // TODO: Automate sending notifs to Band when message from web DB is received.
-            // TODO: Not working when Band already connected in MainPage, needs fix. (shared BandManager across all pages?) 
 
             var bandManager = MainPage.BandManager;
             if (!bandManager.IsConnected())
@@ -58,12 +55,10 @@ namespace LoneWorkerPoC
             InitClearTimer();
         }
 
-        private void HqNotifClick(object sender, RoutedEventArgs e)
+        private async void HqNotifClick(object sender, RoutedEventArgs e)
         {
             var notifString = new NotifString(TitleInput2.Text, BodyInput2.Text);
-            var json = notifString.ToJsonString();
-            Debug.WriteLine(json);
-            // TODO send JSON to DB
+            await HttpManager.SendPostRequest(notifString.ToKeyValuePairs());
         }
 
         private void InitClearTimer()
