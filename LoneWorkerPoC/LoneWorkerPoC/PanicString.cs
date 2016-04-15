@@ -51,7 +51,9 @@ namespace LoneWorkerPoC
         private string GetName()
         {
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            return localSettings.Values.ContainsKey("Name") ? (string) localSettings.Values["Name"] : "N/A";
+            var firstname = localSettings.Values.ContainsKey("FirstName") ? (string)localSettings.Values["FirstName"] : "";
+            var lastname = localSettings.Values.ContainsKey("LastName") ? (string)localSettings.Values["LastName"] : "";
+            return firstname + " " + lastname;
         }
 
         private string GetDeviceId()

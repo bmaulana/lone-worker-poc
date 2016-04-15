@@ -28,9 +28,11 @@ namespace LoneWorkerPoC
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            NameInput.Text = localSettings.Values.ContainsKey("Name") ? (string) localSettings.Values["Name"] : "N/A";
+            FirstNameHead.Text = localSettings.Values.ContainsKey("FirstName") ? (string)localSettings.Values["FirstName"] : "N/A";
+            LastNameHead.Text = localSettings.Values.ContainsKey("LastName") ? (string)localSettings.Values["LastName"] : "N/A";
+            FirstNameInput.Text = localSettings.Values.ContainsKey("FirstName") ? (string) localSettings.Values["FirstName"] : "N/A";
+            LastNameInput.Text = localSettings.Values.ContainsKey("LastName") ? (string)localSettings.Values["LastName"] : "N/A";
             EmailInput.Text = localSettings.Values.ContainsKey("Email") ? (string)localSettings.Values["Email"] : "N/A";
-            PasswordInput.Text = localSettings.Values.ContainsKey("Password") ? (string)localSettings.Values["Password"] : "N/A";
             HeightInput.Text = localSettings.Values.ContainsKey("Height") ? (string)localSettings.Values["Height"] : "N/A";
             WeightInput.Text = localSettings.Values.ContainsKey("Weight") ? (string)localSettings.Values["Weight"] : "N/A";
             DoBInput.Text = localSettings.Values.ContainsKey("DoB") ? (string)localSettings.Values["DoB"] : "N/A";
@@ -39,12 +41,16 @@ namespace LoneWorkerPoC
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            localSettings.Values["Name"] = NameInput.Text;
+            localSettings.Values["FirstName"] = FirstNameInput.Text;
+            localSettings.Values["LastName"] = LastNameInput.Text;
             localSettings.Values["Email"] = EmailInput.Text;
-            localSettings.Values["Password"] = PasswordInput.Text;
             localSettings.Values["Height"] = HeightInput.Text;
             localSettings.Values["Weight"] = WeightInput.Text;
             localSettings.Values["DoB"] = DoBInput.Text;
+
+            FirstNameHead.Text = localSettings.Values.ContainsKey("FirstName") ? (string)localSettings.Values["FirstName"] : "N/A";
+            LastNameHead.Text = localSettings.Values.ContainsKey("LastName") ? (string)localSettings.Values["LastName"] : "N/A";
+
             SaveOutput.Text = "Profile saved.";
             InitClearTimer();
         }
