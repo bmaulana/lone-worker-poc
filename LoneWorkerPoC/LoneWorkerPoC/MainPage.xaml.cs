@@ -3,12 +3,15 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.Data.Xml.Dom;
 using Windows.Devices.Geolocation;
+using Windows.UI.Notifications;
 
 namespace LoneWorkerPoC
 {
     /// <summary>
     /// The main page of the LoneWorkerPoC app.
+    /// TODO add notifications every 30min (?) for user to check in
     /// </summary>
     public sealed partial class MainPage
     {
@@ -241,8 +244,26 @@ namespace LoneWorkerPoC
 
         private async Task PullNotifications()
         {
+            // GET Request
             var notif = await HttpManager.SendGetRequest();
             Debug.WriteLine("Content: " + notif);
+
+            // Check if there is any change
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            var prevNotif = localSettings.Values.ContainsKey("FirstName") ? (string)localSettings.Values["FirstName"] : null;
+            //if (notif == prevNotif) return; // TODO implement dynamic notifications on web first
+            localSettings.Values["FirstName"] = notif;
+
+            // Create Toast XML
+            var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText01);
+
+            // Set Text
+            var toastTextElements = toastXml.GetElementsByTagName("text");
+            toastTextElements[0].AppendChild(toastXml.CreateTextNode(notif));
+
+            // Display Toast
+            var toast = new ToastNotification(toastXml);
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
 
         private async void CheckInClick(object sender, RoutedEventArgs e)
