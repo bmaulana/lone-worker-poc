@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.System.Profile;
@@ -43,6 +44,19 @@ namespace LoneWorkerPoC
             var hashed = hasher.HashData(hardwareId);
 
             return CryptographicBuffer.EncodeToHexString(hashed);
+        }
+
+        public List<KeyValuePair<string, string>> ToKeyValuePairs()
+        {
+            var values = new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>("DeviceId", DeviceId),
+                        new KeyValuePair<string, string>("Sender", Sender),
+                        new KeyValuePair<string, string>("TimeStamp", TimeStamp.ToString()),
+                        new KeyValuePair<string, string>("Title", Title),
+                        new KeyValuePair<string, string>("Message", Message)
+                    };
+            return values;
         }
     }
 }

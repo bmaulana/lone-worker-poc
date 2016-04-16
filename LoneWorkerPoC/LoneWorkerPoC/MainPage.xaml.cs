@@ -4,6 +4,8 @@ using Windows.UI.Xaml.Navigation;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
+using Windows.UI.Notifications;
+using Newtonsoft.Json;
 
 namespace LoneWorkerPoC
 {
@@ -104,7 +106,15 @@ namespace LoneWorkerPoC
 
             if (_initTime == null) { _initTime = new Stopwatch(); }
             _initTime.Start();
-            TimeOutput.Text = "0h 0min 0sec";
+            TimeOutput.Text = "0h 0m 0s";
+
+            // register timer to refresh sensors every minute
+            _timer = new DispatcherTimer { Interval = new TimeSpan(0, 1, 0) }; // refresh every 1 min
+            _timer.Tick += TimerOnTick;
+            _timer.Start();
+
+
+            // TODO add timer for notifications every 30min (?) to remind users to check in
 
             _initSteps = await BandManager.GetPedometer(StepsOutput);
             _steps = 0;
@@ -124,14 +134,12 @@ namespace LoneWorkerPoC
 
             await OneShotLocation();
 
-            _timer = new DispatcherTimer { Interval = new TimeSpan(0, 1, 0) }; // refresh every 1 min
-            _timer.Tick += TimerOnTick;
-            _timer.Start();
-
             _lastRefreshed = DateTime.Now;
 
             BandOutput.Text = "Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds + " s";
             InitClearTimer();
+
+            await PullNotifications();
         }
 
         private async void TimerOnTick(object sender, object o)
@@ -141,36 +149,35 @@ namespace LoneWorkerPoC
 
         private void EndWork()
         {
-            // TODO save end of work data (and send it to DB/web dashboard?)
+            // TODO save end of work data and send it to web
 
             _timer.Stop();
             _timer = null;
 
             _initTime.Stop();
             _initTime.Reset();
-            TimeOutput.Text = "Not started";
+            TimeOutput.Text = "N/A";
 
             _initSteps = 0;
             _steps = 0;
-            StepsOutput.Text = "Not started";
+            StepsOutput.Text = "N/A";
 
             _initDistance = 0;
             _distance = 0;
-            DistanceOutput.Text = "Not started";
+            DistanceOutput.Text = "N/A";
 
             _heartRate = 0;
             _heartRateHigh = 0;
             _heartRateLow = 0;
-            HeartRateOutput.Text = "Not started";
-            HeartRateLow.Text = "Not started";
-            HeartRateHigh.Text = "Not started";
+            HeartRateOutput.Text = "N/A";
+            HeartRateLow.Text = "N/A";
+            HeartRateHigh.Text = "N/A";
 
+            TempOutput.Text = "N/A";
+            LatOutput.Text = "N/A";
+            LongOutput.Text = "N/A";
 
-            TempOutput.Text = "Not started";
-            LatOutput.Text = "Not started";
-            LongOutput.Text = "Not started";
-
-            BandOutput.Text = "Task ended";
+            BandOutput.Text = "Work ended";
             InitClearTimer();
         }
 
@@ -181,10 +188,10 @@ namespace LoneWorkerPoC
 
         private async Task PullSensors()
         {
-            // TODO check whether band is still connected and handle band not connected
+            // TODO check whether band is still connected to phone and handle band not connected
 
             if (!_started) return;
-
+            
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             BandOutput.Text = "Refreshing...";
@@ -217,6 +224,8 @@ namespace LoneWorkerPoC
 
             BandOutput.Text = "Refresh time: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds + " s";
             InitClearTimer();
+
+            await PullNotifications();
         }
 
         private void InitClearTimer()
@@ -235,29 +244,62 @@ namespace LoneWorkerPoC
             _clearTimer = null;
         }
 
-        private void CheckInClick(object sender, RoutedEventArgs e)
+        private async Task PullNotifications()
         {
-            if (!_started) return;
-            var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh,
-                _temperature, _latitude, _longitude);
-            var json = panic.ToJsonString(false);
-            Debug.WriteLine(json); // test code
-            // TODO implement sending JSON string to DB
+            // GET Request
+            var notif = await HttpManager.SendGetRequest();
+            Debug.WriteLine("Content: " + notif);
+
+            // Check if there is any change
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            var prevNotif = localSettings.Values.ContainsKey("Notif") ? (string)localSettings.Values["Notif"] : null;
+            //if (notif == prevNotif) return; // TODO implement dynamic notifications on web first
+            localSettings.Values["Notif"] = notif;
+
+            // Create Toast XML
+            var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText01);
+
+            // Set Text
+            var toastTextElements = toastXml.GetElementsByTagName("text");
+            toastTextElements[0].AppendChild(toastXml.CreateTextNode(notif));
+
+            // Display Toast
+            var toast = new ToastNotification(toastXml);
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
+
+            // Send received notifications from GET requests to Band
+            await BandManager.SendNotification(BandOutput, "Lone Worker", notif);
+
+            // Save notification
+            var prevNotifs = localSettings.Values.ContainsKey("NotifList") ? (string)localSettings.Values["NotifList"] : null;
+            var prevNotifsArray = prevNotifs != null ? JsonConvert.DeserializeObject<string[]>(prevNotifs) : new string[5];
+            for (var i = prevNotifsArray.Length - 1; i > 0; i--)
+            {
+                prevNotifsArray[i] = prevNotifsArray[i - 1];
+            }
+            prevNotifsArray[0] = notif;
+            localSettings.Values["NotifList"] = JsonConvert.SerializeObject(prevNotifsArray);
         }
 
-        private void PanicClick(object sender, RoutedEventArgs e)
+        private async void CheckInClick(object sender, RoutedEventArgs e)
         {
             if (!_started) return;
-            var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps - _initSteps, _distance - _initDistance, _heartRate, _heartRateLow, _heartRateHigh,
+            var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps, _distance, _heartRate, _heartRateLow, _heartRateHigh,
                 _temperature, _latitude, _longitude);
-            var json = panic.ToJsonString(true);
-            Debug.WriteLine(json); // test code
-            // TODO implement sending JSON string to DB
+            await HttpManager.SendPostRequest(panic.ToKeyValuePairs(false));
+        }
+
+        private async void PanicClick(object sender, RoutedEventArgs e)
+        {
+            if (!_started) return;
+            var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps, _distance, _heartRate, _heartRateLow, _heartRateHigh,
+                _temperature, _latitude, _longitude);
+            await HttpManager.SendPostRequest(panic.ToKeyValuePairs(true));
         }
 
         private void UpdateTime()
         {
-            TimeOutput.Text = _initTime.Elapsed.Hours + "h " + _initTime.Elapsed.Minutes + "min " + _initTime.Elapsed.Seconds + "sec";
+            TimeOutput.Text = _initTime.Elapsed.Hours + "h " + _initTime.Elapsed.Minutes + "m " + _initTime.Elapsed.Seconds + "s";
         }
 
         private async Task OneShotLocation()
@@ -266,8 +308,8 @@ namespace LoneWorkerPoC
 
             var geolocator = new Geolocator { DesiredAccuracyInMeters = 50 };
 
-            LatOutput.Text = "Refreshing ...";
-            LongOutput.Text = "Refreshing ...";
+            LatOutput.Text = "Refreshing";
+            LongOutput.Text = "Refreshing";
 
             try
             {
@@ -278,40 +320,39 @@ namespace LoneWorkerPoC
 
                 if (_latitude >= 0)
                 {
-                    LatOutput.Text = _latitude + " N";
+                    LatOutput.Text = Math.Round(_latitude, 5) + " N";
                 }
                 else
                 {
-                    LatOutput.Text = -_latitude + " S";
+                    LatOutput.Text = Math.Round(-_latitude, 5) + " S";
                 }
 
                 if (_longitude >= 0)
                 {
-                    LongOutput.Text = _longitude + " E";
+                    LongOutput.Text = Math.Round(_longitude, 5) + " E";
                 }
                 else
                 {
-                    LongOutput.Text = -_longitude + " W";
+                    LongOutput.Text = Math.Round(-_longitude, 5) + " W";
                 }
             }
             catch (Exception ex)
             {
                 if ((uint)ex.HResult == 0x80004004)
                 {
-                    LatOutput.Text = "location is disabled in phone settings.";
-                    LongOutput.Text = "location is disabled in phone settings.";
+                    LatOutput.Text = "Location disabled";
+                    LongOutput.Text = "Location disabled";
                 }
                 else
                 {
-                    LatOutput.Text = "Something went wrong.";
-                    LongOutput.Text = "Something went wrong.";
+                    LatOutput.Text = "Error";
+                    LongOutput.Text = "Error";
                 }
             }
         }
 
         private void NavigateToProfile(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-
             Frame.Navigate(typeof(ProfilePage));
         }
 
@@ -322,4 +363,3 @@ namespace LoneWorkerPoC
     }
 
 }
-

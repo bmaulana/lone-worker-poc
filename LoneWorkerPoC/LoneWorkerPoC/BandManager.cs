@@ -14,7 +14,7 @@ namespace LoneWorkerPoC
     public class BandManager
     {
         private const int BandDelay = 100; //delay in communicating with the band for sensor retreival in milliseconds
-        private const string RunningMessage = "Refreshing ...";
+        private const string RunningMessage = "Refreshing";
 
         private IBandClient _bandClient;
         private bool _started;
