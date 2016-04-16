@@ -106,6 +106,11 @@ namespace LoneWorkerPoC
             _initTime.Start();
             TimeOutput.Text = "0h 0m 0s";
 
+            // register timer to refresh sensors every minute
+            _timer = new DispatcherTimer { Interval = new TimeSpan(0, 1, 0) }; // refresh every 1 min
+            _timer.Tick += TimerOnTick;
+            _timer.Start();
+
             _initSteps = await BandManager.GetPedometer(StepsOutput);
             _steps = 0;
             StepsOutput.Text = "0";
@@ -124,14 +129,12 @@ namespace LoneWorkerPoC
 
             await OneShotLocation();
 
-            _timer = new DispatcherTimer { Interval = new TimeSpan(0, 1, 0) }; // refresh every 1 min
-            _timer.Tick += TimerOnTick;
-            _timer.Start();
-
             _lastRefreshed = DateTime.Now;
 
             BandOutput.Text = "Startup time: " + _initTime.Elapsed.Seconds + "." + _initTime.Elapsed.Milliseconds + " s";
             InitClearTimer();
+
+            await PullNotifications();
         }
 
         private async void TimerOnTick(object sender, object o)
@@ -180,7 +183,7 @@ namespace LoneWorkerPoC
 
         private async Task PullSensors()
         {
-            // TODO check whether band is still connected and handle band not connected
+            // TODO check whether band is still connected to phone and handle band not connected
 
             if (!_started) return;
             
@@ -216,6 +219,8 @@ namespace LoneWorkerPoC
 
             BandOutput.Text = "Refresh time: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds + " s";
             InitClearTimer();
+
+            await PullNotifications();
         }
 
         private void InitClearTimer()
@@ -232,6 +237,12 @@ namespace LoneWorkerPoC
             BandOutput.Text = "";
             _clearTimer?.Stop();
             _clearTimer = null;
+        }
+
+        private async Task PullNotifications()
+        {
+            var notif = await HttpManager.SendGetRequest();
+            Debug.WriteLine("Content: " + notif);
         }
 
         private async void CheckInClick(object sender, RoutedEventArgs e)
