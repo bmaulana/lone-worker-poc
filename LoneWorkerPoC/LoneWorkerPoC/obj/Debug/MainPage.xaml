@@ -93,7 +93,7 @@
         
         <Rectangle Fill="RED"  Grid.ColumnSpan="3" Margin="0,0,0,557" Height="80" />
         <TextBox Text="Dashboard" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="30"
-                 Margin="12,16,154.833,0" Height="53" Grid.ColumnSpan="2" />
+                 Margin="12,15,154.833,0" Height="53" Grid.ColumnSpan="2" />
 
         <ComboBox Width="145" Name="SourceBox" PlaceholderText="" BorderThickness="0" Margin="231,8,24,459" Foreground="{x:Null}" Grid.ColumnSpan="2" Grid.Column="1">
             <ComboBox.Background>

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using Newtonsoft.Json;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -26,6 +29,20 @@ namespace LoneWorkerPoC
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            RefreshNotifications();
+        }
+
+        private void RefreshNotifications()
+        {
+            // Displays the last five notifications
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            var notifs = localSettings.Values.ContainsKey("NotifList") ? (string)localSettings.Values["NotifList"] : null;
+            if (notifs == null) return;
+
+            var notifsArray = JsonConvert.DeserializeObject<string[]>(notifs);
+            var notifsString = "";
+            notifsString = notifsArray.Where(notif => notif != "").Aggregate(notifsString, (current, notif) => current + notif + "\n");
+            NotifOutput.Text = notifsString;
         }
 
         private void NavigateToDashboard(object sender, TappedRoutedEventArgs e)
@@ -40,8 +57,6 @@ namespace LoneWorkerPoC
 
         private async void BandNotifClick(object sender, RoutedEventArgs e)
         {
-            // TODO: Automate sending notifs to Band when message from web DB is received.
-
             var bandManager = MainPage.BandManager;
             if (!bandManager.IsConnected())
             {
@@ -75,6 +90,11 @@ namespace LoneWorkerPoC
             BandOutput.Text = "";
             _clearTimer?.Stop();
             _clearTimer = null;
+        }
+
+        private void RefreshClick(object sender, RoutedEventArgs e)
+        {
+            RefreshNotifications();
         }
     }
 }

@@ -16,7 +16,7 @@
                 <TextBox x:Name="TitleInput" Width="160" Margin="0,9,20,0" Height="1" HorizontalAlignment="Left" Text="" PlaceholderText="Title"/>
                 <TextBox x:Name="BodyInput" Width="160" Height="1" HorizontalAlignment="Left" Text="" PlaceholderText="Body"/>
             </StackPanel>
-            <TextBlock x:Name="BandOutput" Margin="0,0,0,50" FontSize="16"/>
+            <TextBlock x:Name="BandOutput" Margin="0,0,0,0" FontSize="16"/>
 
             <Button Content="Send notification to HQ" Margin="0,20,20,0" Click="HqNotifClick"/>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
@@ -24,11 +24,16 @@
                 <TextBox x:Name="BodyInput2" Width="160" Height="1" HorizontalAlignment="Left" Text="" PlaceholderText="Body"/>
             </StackPanel>
 
-            <TextBlock x:Name="NotifOutput" Margin="0,0,0,0" FontSize="16"/>
+            <StackPanel Orientation="Vertical" Margin="0,30,0,0">
+                <TextBlock Text="Recieved Notifications:" FontSize="20" />
+                <TextBlock x:Name="NotifOutput" Margin="0,15,0,0" FontSize="18"/>
+                <Button Content="Refresh" Margin="0,0,0,0" Click="RefreshClick"/>
+            </StackPanel>
         </StackPanel>
+        
         <Rectangle Fill="RED" Margin="0,0,0,557" Height="80"/>
         <TextBox Text="Notifications" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="30"
-                 Margin="13,10,183,0" Height="53" />
+                 Margin="13,15,183,0" Height="53" />
         <ComboBox Width="145" x:Name="SourceBox2" PlaceholderText="" BorderThickness="0" Margin="231,8,24,459" Foreground="{x:Null}">
             <ComboBox.Background>
                 <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>

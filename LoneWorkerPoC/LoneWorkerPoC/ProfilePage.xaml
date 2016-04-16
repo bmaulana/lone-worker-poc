@@ -25,7 +25,7 @@
             </ComboBoxItem>
         </ComboBox>
         <TextBox Text="Profile" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="30"
-                 Margin="13,17,270,0" Height="53" />
+                 Margin="13,15,270,0" Height="53" />
         
         <StackPanel x:Name="Image" Margin="0,101,-0.001,0" Grid.ColumnSpan="2" >
             <Image Height="200" Margin="20,15,180,0"  Stretch="UniformToFill" VerticalAlignment="Top" 

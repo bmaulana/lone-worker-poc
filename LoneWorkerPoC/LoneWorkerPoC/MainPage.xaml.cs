@@ -3,15 +3,14 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Windows.Data.Xml.Dom;
 using Windows.Devices.Geolocation;
 using Windows.UI.Notifications;
+using Newtonsoft.Json;
 
 namespace LoneWorkerPoC
 {
     /// <summary>
     /// The main page of the LoneWorkerPoC app.
-    /// TODO add notifications every 30min (?) for user to check in
     /// </summary>
     public sealed partial class MainPage
     {
@@ -114,6 +113,9 @@ namespace LoneWorkerPoC
             _timer.Tick += TimerOnTick;
             _timer.Start();
 
+
+            // TODO add timer for notifications every 30min (?) to remind users to check in
+
             _initSteps = await BandManager.GetPedometer(StepsOutput);
             _steps = 0;
             StepsOutput.Text = "0";
@@ -147,7 +149,7 @@ namespace LoneWorkerPoC
 
         private void EndWork()
         {
-            // TODO save end of work data (and send it to DB/web dashboard?)
+            // TODO save end of work data and send it to web
 
             _timer.Stop();
             _timer = null;
@@ -250,9 +252,9 @@ namespace LoneWorkerPoC
 
             // Check if there is any change
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            var prevNotif = localSettings.Values.ContainsKey("FirstName") ? (string)localSettings.Values["FirstName"] : null;
+            var prevNotif = localSettings.Values.ContainsKey("Notif") ? (string)localSettings.Values["Notif"] : null;
             //if (notif == prevNotif) return; // TODO implement dynamic notifications on web first
-            localSettings.Values["FirstName"] = notif;
+            localSettings.Values["Notif"] = notif;
 
             // Create Toast XML
             var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText01);
@@ -264,6 +266,19 @@ namespace LoneWorkerPoC
             // Display Toast
             var toast = new ToastNotification(toastXml);
             ToastNotificationManager.CreateToastNotifier().Show(toast);
+
+            // Send received notifications from GET requests to Band
+            await BandManager.SendNotification(BandOutput, "Lone Worker", notif);
+
+            // Save notification
+            var prevNotifs = localSettings.Values.ContainsKey("NotifList") ? (string)localSettings.Values["NotifList"] : null;
+            var prevNotifsArray = prevNotifs != null ? JsonConvert.DeserializeObject<string[]>(prevNotifs) : new string[5];
+            for (var i = prevNotifsArray.Length - 1; i > 0; i--)
+            {
+                prevNotifsArray[i] = prevNotifsArray[i - 1];
+            }
+            prevNotifsArray[0] = notif;
+            localSettings.Values["NotifList"] = JsonConvert.SerializeObject(prevNotifsArray);
         }
 
         private async void CheckInClick(object sender, RoutedEventArgs e)
