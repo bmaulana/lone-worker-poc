@@ -18,17 +18,14 @@
                     <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>
 
                 </ComboBox.Background>
-                <ComboBoxItem Content="Profile"  Background="#FFDE2A2A" />
+
                 <ComboBoxItem Content="Notifications" Background="#FFDE2A2A" Tapped="NavigateToNotifications" />
-                <ComboBoxItem IsSelected="True" Content="Dashboard" Tapped="NavigateToDashboard" Background="#FFDE2A2A">
-                    <ComboBoxItem.Resources>
-                        <Color x:Key="MainColor">#FFAE4343</Color>
-                    </ComboBoxItem.Resources>
-                </ComboBoxItem>
+                <ComboBoxItem Content="Dashboard" Tapped="NavigateToDashboard" Background="#FFDE2A2A"/>
+
             </ComboBox>
         </StackPanel>
-        <StackPanel x:Name="Image" Margin="0,101,-0.001,0" Grid.ColumnSpan="2" >
-            <Image Height="200" Margin="20,15,180,0"  Stretch="UniformToFill" VerticalAlignment="Top" 
+        <StackPanel x:Name="Image" Margin="0,101,0,0" >
+            <Image Height="204" Margin="20,15,180,0"  Stretch="UniformToFill" VerticalAlignment="Top" 
     			Source="Assets/SampleTileIconLarge.png"/>
         </StackPanel>
 

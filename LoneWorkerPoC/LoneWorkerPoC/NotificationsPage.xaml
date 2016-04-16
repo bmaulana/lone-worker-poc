@@ -9,7 +9,7 @@
 
 
     <Grid Background="#FFAE4343" Height="635" Margin="0,3,0,0" VerticalAlignment="Bottom">
-        <StackPanel Orientation="Vertical" Margin="20,87,20,20">
+        <StackPanel Orientation="Vertical" Margin="20,108,20,0">
             <Button Content="Send notification to Band" Margin="0,20,20,0" Click="BandNotifClick"/>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
@@ -38,14 +38,10 @@
                 <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>
 
             </ComboBox.Background>
-            <ComboBoxItem Content="Profile"  Background="#FFDE2A2A" Tapped="NavigateToProfile"/>
-            <ComboBoxItem Content="Notifications" Background="#FFDE2A2A" />
-            <ComboBoxItem IsSelected="True" Content="Dashboard" Tapped="NavigateToDashboard" Background="#FFDE2A2A">
-                <ComboBoxItem.Resources>
-                    <Color x:Key="MainColor">#FFAE4343</Color>
-                </ComboBoxItem.Resources>
-            </ComboBoxItem>
-        </ComboBox>
+                <ComboBoxItem Content="Profile"  Background="#FFDE2A2A" Tapped="NavigateToProfile"/>
+                <ComboBoxItem Content="Dashboard" Tapped="NavigateToDashboard" Background="#FFDE2A2A"/>
+
+            </ComboBox>
         </StackPanel>
     </Grid>
 </Page>
