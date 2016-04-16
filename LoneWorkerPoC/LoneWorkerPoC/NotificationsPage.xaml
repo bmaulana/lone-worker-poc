@@ -33,12 +33,12 @@
         <StackPanel Orientation="Horizontal" Margin="0,0,0,548" Background="Red" >
             <TextBox Text="Notifications" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="30"
                  Margin="20,20,0,0" Height="53" />
-           <ComboBox Width="145" x:Name="SourceBox2" PlaceholderText="" BorderThickness="0" Margin="60,20,0,-97.333" Foreground="{x:Null}">
-            <ComboBox.Background>
-                <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>
+            <ComboBox Width="145" x:Name="SourceBox2" PlaceholderText="" BorderThickness="0" Margin="60,20,0,-97.333" Foreground="{x:Null}">
+                <ComboBox.Background>
+                    <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>
 
-            </ComboBox.Background>
-                <ComboBoxItem Content="Profile"  Background="#FFDE2A2A" Tapped="NavigateToProfile"/>
+                </ComboBox.Background>
+                <ComboBoxItem Content="Profile"  Background="#FFDE2A2A" Tapped="NavigateToProfile" />
                 <ComboBoxItem Content="Dashboard" Tapped="NavigateToDashboard" Background="#FFDE2A2A"/>
 
             </ComboBox>
