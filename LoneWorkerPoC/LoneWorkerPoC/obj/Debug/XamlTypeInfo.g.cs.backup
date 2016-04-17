@@ -124,29 +124,21 @@ namespace LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[10];
+            _typeNameTable = new string[6];
             _typeNameTable[0] = "LoneWorkerPoC.Login";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
             _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
-            _typeNameTable[3] = "Windows.UI.Color";
-            _typeNameTable[4] = "System.ValueType";
-            _typeNameTable[5] = "Object";
-            _typeNameTable[6] = "Byte";
-            _typeNameTable[7] = "LoneWorkerPoC.MainPage";
-            _typeNameTable[8] = "LoneWorkerPoC.NotificationsPage";
-            _typeNameTable[9] = "LoneWorkerPoC.ProfilePage";
+            _typeNameTable[3] = "LoneWorkerPoC.MainPage";
+            _typeNameTable[4] = "LoneWorkerPoC.NotificationsPage";
+            _typeNameTable[5] = "LoneWorkerPoC.ProfilePage";
 
-            _typeTable = new global::System.Type[10];
+            _typeTable = new global::System.Type[6];
             _typeTable[0] = typeof(global::LoneWorkerPoC.Login);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
             _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
-            _typeTable[3] = typeof(global::Windows.UI.Color);
-            _typeTable[4] = typeof(global::System.ValueType);
-            _typeTable[5] = typeof(global::System.Object);
-            _typeTable[6] = typeof(global::System.Byte);
-            _typeTable[7] = typeof(global::LoneWorkerPoC.MainPage);
-            _typeTable[8] = typeof(global::LoneWorkerPoC.NotificationsPage);
-            _typeTable[9] = typeof(global::LoneWorkerPoC.ProfilePage);
+            _typeTable[3] = typeof(global::LoneWorkerPoC.MainPage);
+            _typeTable[4] = typeof(global::LoneWorkerPoC.NotificationsPage);
+            _typeTable[5] = typeof(global::LoneWorkerPoC.ProfilePage);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -182,9 +174,9 @@ namespace LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo
         }
 
         private object Activate_0_Login() { return new global::LoneWorkerPoC.Login(); }
-        private object Activate_7_MainPage() { return new global::LoneWorkerPoC.MainPage(); }
-        private object Activate_8_NotificationsPage() { return new global::LoneWorkerPoC.NotificationsPage(); }
-        private object Activate_9_ProfilePage() { return new global::LoneWorkerPoC.ProfilePage(); }
+        private object Activate_3_MainPage() { return new global::LoneWorkerPoC.MainPage(); }
+        private object Activate_4_NotificationsPage() { return new global::LoneWorkerPoC.NotificationsPage(); }
+        private object Activate_5_ProfilePage() { return new global::LoneWorkerPoC.ProfilePage(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -211,47 +203,23 @@ namespace LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo
                 xamlType = new global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 3:   //  Windows.UI.Color
-                userType = new global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
-                userType.AddMemberName("A");
-                userType.AddMemberName("B");
-                userType.AddMemberName("G");
-                userType.AddMemberName("R");
-                xamlType = userType;
-                break;
-
-            case 4:   //  System.ValueType
-                userType = new global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                xamlType = userType;
-                break;
-
-            case 5:   //  Object
-                xamlType = new global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlSystemBaseType(typeName, type);
-                break;
-
-            case 6:   //  Byte
-                userType = new global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
-                userType.SetIsReturnTypeStub();
-                xamlType = userType;
-                break;
-
-            case 7:   //  LoneWorkerPoC.MainPage
+            case 3:   //  LoneWorkerPoC.MainPage
                 userType = new global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_7_MainPage;
+                userType.Activator = Activate_3_MainPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 8:   //  LoneWorkerPoC.NotificationsPage
+            case 4:   //  LoneWorkerPoC.NotificationsPage
                 userType = new global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_8_NotificationsPage;
+                userType.Activator = Activate_4_NotificationsPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 9:   //  LoneWorkerPoC.ProfilePage
+            case 5:   //  LoneWorkerPoC.ProfilePage
                 userType = new global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_9_ProfilePage;
+                userType.Activator = Activate_5_ProfilePage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
@@ -260,79 +228,11 @@ namespace LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo
         }
 
 
-        private object get_0_Color_A(object instance)
-        {
-            var that = (global::Windows.UI.Color)instance;
-            return that.A;
-        }
-        private void set_0_Color_A(object instance, object Value)
-        {
-            var that = (global::Windows.UI.Color)instance;
-            that.A = (global::System.Byte)Value;
-        }
-        private object get_1_Color_B(object instance)
-        {
-            var that = (global::Windows.UI.Color)instance;
-            return that.B;
-        }
-        private void set_1_Color_B(object instance, object Value)
-        {
-            var that = (global::Windows.UI.Color)instance;
-            that.B = (global::System.Byte)Value;
-        }
-        private object get_2_Color_G(object instance)
-        {
-            var that = (global::Windows.UI.Color)instance;
-            return that.G;
-        }
-        private void set_2_Color_G(object instance, object Value)
-        {
-            var that = (global::Windows.UI.Color)instance;
-            that.G = (global::System.Byte)Value;
-        }
-        private object get_3_Color_R(object instance)
-        {
-            var that = (global::Windows.UI.Color)instance;
-            return that.R;
-        }
-        private void set_3_Color_R(object instance, object Value)
-        {
-            var that = (global::Windows.UI.Color)instance;
-            that.R = (global::System.Byte)Value;
-        }
 
         private global::Windows.UI.Xaml.Markup.IXamlMember CreateXamlMember(string longMemberName)
         {
             global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlMember xamlMember = null;
-            global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlUserType userType;
-
-            switch (longMemberName)
-            {
-            case "Windows.UI.Color.A":
-                userType = (global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Windows.UI.Color");
-                xamlMember = new global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlMember(this, "A", "Byte");
-                xamlMember.Getter = get_0_Color_A;
-                xamlMember.Setter = set_0_Color_A;
-                break;
-            case "Windows.UI.Color.B":
-                userType = (global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Windows.UI.Color");
-                xamlMember = new global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlMember(this, "B", "Byte");
-                xamlMember.Getter = get_1_Color_B;
-                xamlMember.Setter = set_1_Color_B;
-                break;
-            case "Windows.UI.Color.G":
-                userType = (global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Windows.UI.Color");
-                xamlMember = new global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlMember(this, "G", "Byte");
-                xamlMember.Getter = get_2_Color_G;
-                xamlMember.Setter = set_2_Color_G;
-                break;
-            case "Windows.UI.Color.R":
-                userType = (global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Windows.UI.Color");
-                xamlMember = new global::LoneWorkerPoC.LoneWorkerPoC_XamlTypeInfo.XamlMember(this, "R", "Byte");
-                xamlMember.Getter = get_3_Color_R;
-                xamlMember.Setter = set_3_Color_R;
-                break;
-            }
+            // No Local Properties
             return xamlMember;
         }
     }

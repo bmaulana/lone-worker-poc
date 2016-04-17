@@ -267,7 +267,7 @@ namespace LoneWorkerPoC
             var toast = new ToastNotification(toastXml);
             ToastNotificationManager.CreateToastNotifier().Show(toast);
 
-            // Send received notifications from GET requests to Band
+            // Send received notification to Band
             await BandManager.SendNotification(BandOutput, "Lone Worker", notif);
 
             // Save notification
