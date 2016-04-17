@@ -100,7 +100,6 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ComboBoxItem">
       <RootProperty Name="Content" />
-      <RootProperty Name="Background" />
       <RootEvent Name="Tapped" />
     </RootType>
     <RootType FullName="LoneWorkerPoC.MainPage" />

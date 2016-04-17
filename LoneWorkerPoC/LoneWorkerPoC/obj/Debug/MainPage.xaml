@@ -90,17 +90,16 @@
                     FontSize="21.333"                   />
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Margin="0,0,0,0" Grid.ColumnSpan="3" Background="Red">
-            <TextBox Text="Dashboard" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="30"
-        		Margin="20,20,0,0" Height="53" />
-            <ComboBox Width="134" x:Name="SourceBox" PlaceholderText="" BorderThickness="0" Margin="95,20,24,-75.833" Foreground="{x:Null}" Grid.ColumnSpan="2" Grid.Column="1">
-                <ComboBox.Background>
-                    <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>
-                </ComboBox.Background>
-                <ComboBoxItem x:ConnectionId='1' Content="Notifications"                                      />
-                <ComboBoxItem x:ConnectionId='2' Content="Profile"                              />
-            </ComboBox>
-        </StackPanel>
+        <TextBox Text="Dashboard" Background="Transparent" BorderThickness="0" FontWeight="Bold" FontSize="30"
+        		Margin="-1.667,20,175.833,0" Height="53" Grid.Column="1" />
+        <ComboBox Width="134" x:Name="SourceBox" PlaceholderText="" BorderThickness="0" Margin="244.333,12,0,-67.333" Foreground="{x:Null}" Grid.ColumnSpan="2" Grid.Column="1">
+            <ComboBox.Background>
+                <ImageBrush ImageSource="Assets/threeline.png" Stretch="None"/>
+            </ComboBox.Background>
+            <ComboBoxItem x:ConnectionId='1' Content="Profile"                            />
+            <ComboBoxItem x:ConnectionId='2' Content="Notifications"                                 />
+        </ComboBox>
+
 
     </Grid>
 </Page>

@@ -108,6 +108,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\2000px-Pessoa_Neutra.svg.png" />
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\SampleTileIconLarge.png" />
     <Content Include="Assets\SampleTileIconSmall.png" />

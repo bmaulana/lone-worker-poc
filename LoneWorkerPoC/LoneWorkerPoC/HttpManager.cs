@@ -29,7 +29,7 @@ namespace LoneWorkerPoC
             var httpClient = new HttpClient();
             var response = await httpClient.GetAsync(Url + "/notif");
             var content = await response.Content.ReadAsStringAsync();
-            return content/*.Substring(content.IndexOf(':') + 2)*/;
+            return content;
         }
     }
 }

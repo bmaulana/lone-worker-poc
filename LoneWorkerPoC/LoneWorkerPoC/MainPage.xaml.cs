@@ -268,7 +268,7 @@ namespace LoneWorkerPoC
             ToastNotificationManager.CreateToastNotifier().Show(toast);
 
             // Send received notification to Band
-            await BandManager.SendNotification(BandOutput, "Lone Worker", notif);
+            await BandManager.SendNotification(BandOutput, notif.Substring(0, notif.IndexOf(';')), notif.Substring(notif.IndexOf(';') + 2));
 
             // Save notification
             var prevNotifs = localSettings.Values.ContainsKey("NotifList") ? (string)localSettings.Values["NotifList"] : null;
