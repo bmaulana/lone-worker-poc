@@ -8,3 +8,4 @@ under emergency conditions can send a panic alarm that sends these information t
 
 Created for the UCL Computer Science Year 2 Systems Engineering project by Group 37 - Leah Halaseh, Bagus Maulana, Iacovos Pantekhis
 
+Built for Windows Phone 8.1 and above
