@@ -253,8 +253,10 @@ namespace LoneWorkerPoC
             // Check if there is any change
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             var prevNotif = localSettings.Values.ContainsKey("Notif") ? (string)localSettings.Values["Notif"] : null;
-            //if (notif == prevNotif) return; // TODO implement dynamic notifications on web first
+            if (notif == prevNotif) return;
             localSettings.Values["Notif"] = notif;
+            BandOutput.Text = "Notification received";
+            InitClearTimer();
 
             // Create Toast XML
             var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText01);
@@ -287,6 +289,9 @@ namespace LoneWorkerPoC
             var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps, _distance, _heartRate, _heartRateLow, _heartRateHigh,
                 _temperature, _latitude, _longitude);
             await HttpManager.SendPostRequest(panic.ToKeyValuePairs(false));
+            BandOutput.Text = "Message sent";
+            InitClearTimer();
+
         }
 
         private async void PanicClick(object sender, RoutedEventArgs e)
@@ -295,6 +300,8 @@ namespace LoneWorkerPoC
             var panic = new PanicString(_lastRefreshed, _lastStarted, _initTime.Elapsed, _steps, _distance, _heartRate, _heartRateLow, _heartRateHigh,
                 _temperature, _latitude, _longitude);
             await HttpManager.SendPostRequest(panic.ToKeyValuePairs(true));
+            BandOutput.Text = "Message sent";
+            InitClearTimer();
         }
 
         private void UpdateTime()

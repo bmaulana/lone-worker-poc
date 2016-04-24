@@ -74,6 +74,8 @@ namespace LoneWorkerPoC
         {
             var notifString = new NotifString(TitleInput2.Text, BodyInput2.Text);
             await HttpManager.SendPostRequest(notifString.ToKeyValuePairs());
+            BandOutput.Text = "Message sent";
+            InitClearTimer();
         }
 
         private void InitClearTimer()
@@ -94,6 +96,13 @@ namespace LoneWorkerPoC
 
         private void RefreshClick(object sender, RoutedEventArgs e)
         {
+            RefreshNotifications();
+        }
+
+        private void ClearClick(object sender, RoutedEventArgs e)
+        {
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["NotifList"] = JsonConvert.SerializeObject(new string[5]);
             RefreshNotifications();
         }
     }

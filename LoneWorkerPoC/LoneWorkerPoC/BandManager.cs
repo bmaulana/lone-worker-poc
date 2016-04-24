@@ -250,7 +250,7 @@ namespace LoneWorkerPoC
         public async Task SendNotification(TextBlock output, string title, string message)
         {
             if (!_started) return;
-            output.Text = "Sending...";
+            // output.Text = "Sending...";
 
             try
             {
@@ -285,7 +285,7 @@ namespace LoneWorkerPoC
                     // Send a notification.
                     await _bandClient.NotificationManager.SendMessageAsync(myTileId, title, message, DateTimeOffset.Now, MessageFlags.ShowDialog);
 
-                    output.Text = "Message sent.";
+                    //output.Text = "Message sent.";
             }
             catch (Exception ex)
             {
