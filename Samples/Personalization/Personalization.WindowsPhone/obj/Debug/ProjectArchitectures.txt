@@ -1,1 +1,0 @@
-D:\BandSDK\Samples\Personalization\Personalization.WindowsPhone\Personalization.WindowsPhone.csproj;neutral

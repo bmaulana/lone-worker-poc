@@ -1,1 +1,0 @@
-D:\GitHub\lone-worker-poc\testWP8App\testWP8App\testWP8App.csproj;neutral

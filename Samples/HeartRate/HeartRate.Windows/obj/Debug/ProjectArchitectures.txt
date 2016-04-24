@@ -1,1 +1,0 @@
-D:\BandSDK\Samples\HeartRate\HeartRate.Windows\HeartRate.Windows.csproj;neutral
